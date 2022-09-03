@@ -9,7 +9,7 @@ export function ListItem({ item }){
             <Counter count={1} size="default" />
             <div>
                 <img className={styles.item_image} src={item.image} alt={item.name}/>
-                <p className={styles.item_price}><span>{item.price}</span> <CurrencyIcon type="primary" /></p>
+                <div className={styles.item_price}><span>{item.price}</span> <CurrencyIcon type="primary" /></div>
             </div>
             <p className={styles.item_name}>{item.name}</p>
         </div>

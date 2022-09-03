@@ -19,6 +19,9 @@
     composes: mb-1 from global;
     composes: text from global;
     composes: text_type_digits-default from global;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 .item_name{
     composes: text from global;
