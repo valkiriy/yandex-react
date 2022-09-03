@@ -29,17 +29,16 @@
     composes: text from global;
     composes: text_type_main-default from global;
     composes: p-5 from global;
-    color: white;
+    color: #8585AD;
     text-decoration: none;
-    opacity: .5;
     display: flex;
     flex-direction: row;
 }
 
 .link.active{
-    opacity: 1;
+    color: white;
 }
 
 .link:hover{
-    opacity: 1;
+    color: white;
 }

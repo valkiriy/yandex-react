@@ -1,6 +1,5 @@
 import React from 'react';
-import './App.css';
-
+import "./App.css"
 import '@ya.praktikum/react-developer-burger-ui-components'
 
 import {AppHeader} from "./components/app-header";
@@ -11,9 +10,9 @@ function App() {
   return (
     <>
         <AppHeader />
-        <main>
-            <BurgerIngredients />
+        <main className={'main container'}>
             <BurgerConstructor />
+            <BurgerIngredients />
         </main>
     </>
   );

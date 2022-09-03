@@ -1,0 +1,27 @@
+.list{
+    composes: ml-4 from global;
+    composes: mr-4 from global;
+    display: grid;
+    grid-gap: 24px;
+    gap: 24px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.item{
+    text-align: center;
+    position: relative;
+}
+
+.item_image{
+    composes: mb-1 from global;
+}
+.item_price{
+    composes: mb-1 from global;
+    composes: text from global;
+    composes: text_type_digits-default from global;
+}
+.item_name{
+    composes: text from global;
+    composes: text_type_main-default from global;
+
+}
