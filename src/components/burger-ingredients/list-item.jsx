@@ -1,15 +1,23 @@
 import React from "react";
-import styles from './styles.module.css'
+import PropTypes from "prop-types";
 
-import {ConstructorElement, Counter, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from './burger-ingredients.module.css'
+
+import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+
+export const itemPropType = PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+});
 
 export function ListItem({ item, pos }){
     return (
         <div className={styles.item}>
-            {pos === null ? <DragIcon type="primary" /> : null }
+            {pos === '' ? <DragIcon type="primary" /> : null }
             <ConstructorElement
                 type={pos}
-                isLocked={pos !== null}
+                isLocked={pos !== ''}
                 text={item.name}
                 price={item.price}
                 thumbnail={item.image}
@@ -18,3 +26,8 @@ export function ListItem({ item, pos }){
     )
 }
 
+
+ListItem.propTypes = {
+    item: itemPropType.isRequired,
+    pos: PropTypes.string
+}

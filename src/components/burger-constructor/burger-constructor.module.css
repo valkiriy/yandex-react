@@ -1,3 +1,14 @@
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.tab{
+    composes: mb-10 from global;
+    display: flex;
+    justify-content: space-between;
+}
+
 .list{
     composes: ml-4 from global;
     composes: mr-4 from global;

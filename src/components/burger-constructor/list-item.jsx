@@ -1,7 +1,16 @@
 import React from "react";
-import styles from './styles.module.css'
+import PropTypes from 'prop-types';
+import styles from './burger-constructor.module.css'
 
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+
+export const itemPropType = PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['bun', 'main', 'sauce']).isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired
+});
 
 export function ListItem({ item }){
     return (
@@ -16,3 +25,6 @@ export function ListItem({ item }){
     )
 }
 
+ListItem.propTypes = {
+    item: itemPropType.isRequired
+}

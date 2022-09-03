@@ -1,0 +1,27 @@
+.list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.content {
+    composes: mt-25 from global;
+    display: flex;
+    flex-direction: column;
+}
+
+.summary{
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    composes: mt-10 from global;
+}
