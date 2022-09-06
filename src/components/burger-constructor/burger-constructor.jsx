@@ -1,6 +1,6 @@
 import React from "react";
 
-import {ListItems} from "./list-items";
+import {ConstructorList} from "./constructor-list";
 import styles from './burger-constructor.module.css'
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components"
 import * as listIngredients from "../../utils/data.json";
@@ -22,7 +22,7 @@ export function BurgerConstructor(){
                     Начинки
                 </Tab>
             </div>
-            <ListItems items={listIngredients.default.filter(x => x.type === current)} />
+            <ConstructorList items={listIngredients.default.filter(x => x.type === current)} />
         </div>
     )
 }
