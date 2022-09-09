@@ -1,33 +1,33 @@
 import React from "react";
+
+import {IngredientsList} from "./ingredients-list";
 import styles from './burger-ingredients.module.css'
+import {Tab} from "@ya.praktikum/react-developer-burger-ui-components"
+import PropTypes from "prop-types";
+import {ingredientType} from "../../utils/types";
 
-import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components"
-import {IngredientList} from "./ingredient-list";
-import * as simpleList from "../../utils/simple.json";
-import {Modal} from "../modal/modal";
-import {OrderDetails} from "../order-details/order-details";
-
-export function BurgerIngredients(){
-
-    const [showOrderInfo, setShowOrderInfo] = React.useState(false)
+export function BurgerIngredients({ingredients}){
+    const [current, setCurrent] = React.useState('bun')
 
     return (
-        <>
-            <div className={styles.content}>
-                <IngredientList items={simpleList.default} />
-                <div className={styles.summary}>
-                <span className="text text_type_digits-medium">
-                    610 <CurrencyIcon type="large" />
-                </span>
-                    <span>
-                    <Button type="primary" onClick={() => setShowOrderInfo(true)} size="large">
-                      Оформить заказ
-                    </Button>
-                </span>
-                </div>
+        <div className={styles.content}>
+            <h1 className={"pt-10 pb-5 text text_type_main-large"}>Соберите бургер</h1>
+            <div className={styles.tab}>
+                <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
+                    Булки
+                </Tab>
+                <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
+                    Соусы
+                </Tab>
+                <Tab value="main" active={current === 'main'} onClick={setCurrent}>
+                    Начинки
+                </Tab>
             </div>
-            {showOrderInfo && <Modal onClose={() => setShowOrderInfo(false) }><OrderDetails /></Modal>}
-        </>
+            <IngredientsList items={ingredients.filter(x => x.type === current)} />
+        </div>
     )
 }
 
+BurgerIngredients.propTypes = {
+    ingredients: PropTypes.arrayOf(ingredientType).isRequired
+}

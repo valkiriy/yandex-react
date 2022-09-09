@@ -1,23 +1,36 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import styles from './burger-constructor.module.css'
 
-import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+
+import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientType} from "../../utils/types";
 
-
-export function ConstructorItem({ item, handleShowInfoItem }){
+export function ConstructorItem({ item, pos }){
+    let name = item.name;
+    if(pos === 'top'){
+        name += " (вверх)"
+    }
+    if(pos === 'bottom'){
+        name += " (низ)"
+    }
     return (
-        <div className={styles.item} onClick={() => handleShowInfoItem(item)}>
-            <Counter count={1} size="default" />
-            <div>
-                <img className={styles.item_image} src={item.image} alt={item.name}/>
-                <div className={styles.item_price}><span>{item.price}</span> <CurrencyIcon type="primary" /></div>
-            </div>
-            <p className={styles.item_name}>{item.name}</p>
+        <div className={styles.item}>
+            {pos === '' ? <DragIcon type="primary" /> : null }
+            <ConstructorElement
+                type={pos}
+                isLocked={pos !== ''}
+                text={name}
+                price={item.price}
+                thumbnail={item.image}
+            />
         </div>
     )
 }
 
+
 ConstructorItem.propTypes = {
-    item: ingredientType.isRequired
+    item: ingredientType.isRequired,
+    pos: PropTypes.string
 }

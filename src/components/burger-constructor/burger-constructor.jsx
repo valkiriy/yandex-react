@@ -1,33 +1,33 @@
 import React from "react";
-
-import {ConstructorList} from "./constructor-list";
 import styles from './burger-constructor.module.css'
-import {Tab} from "@ya.praktikum/react-developer-burger-ui-components"
-import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/types";
 
-export function BurgerConstructor({ingredients}){
-    const [current, setCurrent] = React.useState('bun')
+import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components"
+import {ConstructorList} from "./constructor-list";
+import * as simpleList from "../../utils/simple.json";
+import {Modal} from "../modal/modal";
+import {OrderDetails} from "../order-details/order-details";
+
+export function BurgerConstructor(){
+
+    const [showOrderInfo, setShowOrderInfo] = React.useState(false)
 
     return (
-        <div className={styles.content}>
-            <h1 className={"pt-10 pb-5 text text_type_main-large"}>Соберите бургер</h1>
-            <div className={styles.tab}>
-                <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
-                    Булки
-                </Tab>
-                <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
-                    Соусы
-                </Tab>
-                <Tab value="main" active={current === 'main'} onClick={setCurrent}>
-                    Начинки
-                </Tab>
+        <>
+            <div className={styles.content}>
+                <ConstructorList items={simpleList.default} />
+                <div className={styles.summary}>
+                <span className="text text_type_digits-medium">
+                    610 <CurrencyIcon type="large" />
+                </span>
+                    <span>
+                    <Button type="primary" onClick={() => setShowOrderInfo(true)} size="large">
+                      Оформить заказ
+                    </Button>
+                </span>
+                </div>
             </div>
-            <ConstructorList items={ingredients.filter(x => x.type === current)} />
-        </div>
+            {showOrderInfo && <Modal onClose={() => setShowOrderInfo(false) }><OrderDetails /></Modal>}
+        </>
     )
 }
 
-BurgerConstructor.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientType).isRequired
-}

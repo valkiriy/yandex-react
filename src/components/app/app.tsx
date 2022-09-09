@@ -15,9 +15,10 @@ function App() {
     React.useEffect(() => {
         const loadData = async () => {
             try {
-                const res = await fetch(API_URL);
-                const data = await res.json();
-                setIngredients(data.data);
+                await fetch(API_URL)
+                    .then(res => res.json())
+                    .then(data => setIngredients(data.data))
+                    .catch(err => console.log(err))
             }catch (e) {
                 console.log(e)
             }
@@ -29,8 +30,8 @@ function App() {
         <>
             <AppHeader />
             <main className={`${styles.main} ${styles.container}`}>
-                <BurgerConstructor ingredients={ingredients} />
-                <BurgerIngredients />
+                <BurgerIngredients ingredients={ingredients} />
+                <BurgerConstructor />
             </main>
         </>
     );
