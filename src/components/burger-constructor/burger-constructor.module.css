@@ -11,16 +11,19 @@
 
 .list{
     composes: ml-4 from global;
-    composes: mr-4 from global;
+    composes: pr-4 from global;
     display: grid;
     grid-gap: 24px;
     gap: 24px;
     grid-template-columns: 1fr 1fr;
+    max-height: calc(100vh - 350px);
+    overflow-y: auto;
 }
 
 .item{
     text-align: center;
     position: relative;
+    cursor: pointer;
 }
 
 .item_image{

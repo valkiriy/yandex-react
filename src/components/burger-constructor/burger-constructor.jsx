@@ -3,9 +3,10 @@ import React from "react";
 import {ConstructorList} from "./constructor-list";
 import styles from './burger-constructor.module.css'
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components"
-import * as listIngredients from "../../utils/data.json";
+import PropTypes from "prop-types";
+import {ingredientType} from "../../utils/types";
 
-export function BurgerConstructor(){
+export function BurgerConstructor({ingredients}){
     const [current, setCurrent] = React.useState('bun')
 
     return (
@@ -22,8 +23,11 @@ export function BurgerConstructor(){
                     Начинки
                 </Tab>
             </div>
-            <ConstructorList items={listIngredients.default.filter(x => x.type === current)} />
+            <ConstructorList items={ingredients.filter(x => x.type === current)} />
         </div>
     )
 }
 
+BurgerConstructor.propTypes = {
+    ingredients: PropTypes.arrayOf(ingredientType).isRequired
+}

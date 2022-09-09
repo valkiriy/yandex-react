@@ -6,16 +6,34 @@ import {AppHeader} from "../app-header/app-header";
 import {BurgerIngredients} from "../burger-ingredients/burger-ingredients";
 import {BurgerConstructor} from "../burger-constructor/burger-constructor";
 
+const API_URL = `https://norma.nomoreparties.space/api/ingredients`;
+
 function App() {
-  return (
-    <>
-        <AppHeader />
-        <main className={`${styles.main} ${styles.container}`}>
-            <BurgerConstructor />
-            <BurgerIngredients />
-        </main>
-    </>
-  );
+
+    const [ingredients, setIngredients] = React.useState([])
+
+    React.useEffect(() => {
+        const loadData = async () => {
+            try {
+                const res = await fetch(API_URL);
+                const data = await res.json();
+                setIngredients(data.data);
+            }catch (e) {
+                console.log(e)
+            }
+        }
+        loadData();
+    }, [])
+
+    return (
+        <>
+            <AppHeader />
+            <main className={`${styles.main} ${styles.container}`}>
+                <BurgerConstructor ingredients={ingredients} />
+                <BurgerIngredients />
+            </main>
+        </>
+    );
 }
 
 export default App;

@@ -5,9 +5,9 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import {ingredientType} from "../../utils/types";
 
 
-export function ConstructorItem({ item }){
+export function ConstructorItem({ item, handleShowInfoItem }){
     return (
-        <div className={styles.item}>
+        <div className={styles.item} onClick={() => handleShowInfoItem(item)}>
             <Counter count={1} size="default" />
             <div>
                 <img className={styles.item_image} src={item.image} alt={item.name}/>

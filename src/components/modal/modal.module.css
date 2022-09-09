@@ -1,0 +1,26 @@
+.modal{
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}
+
+.content{
+    min-height: 200px;
+    background: #1C1C21;
+    border-radius: 20px;
+    margin: auto;
+    position: relative;
+    width: 720px;
+    z-index: 2000;
+}
+
+.close{
+    position: absolute;
+    right: 40px;
+    top: 50px;
+    z-index: 20001;
+    cursor: pointer;
+}
