@@ -14,14 +14,15 @@ function App() {
 
     React.useEffect(() => {
         const loadData = async () => {
-            try {
-                await fetch(API_URL)
-                    .then(res => res.json())
-                    .then(data => setIngredients(data.data))
-                    .catch(err => console.log(err))
-            }catch (e) {
-                console.log(e)
-            }
+            await fetch(API_URL)
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    return Promise.reject(`Ошибка ${res.status}`);
+                })
+                .then(data => setIngredients(data.data))
+                .catch(err => console.log(err))
         }
         loadData();
     }, [])
