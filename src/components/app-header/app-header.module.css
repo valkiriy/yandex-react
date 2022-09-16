@@ -1,0 +1,45 @@
+.header{
+    composes: p-4 from global;
+    background: #1C1C21;
+}
+
+.menu{
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    padding: 0;
+}
+
+.menuLeft{
+    display: flex;
+}
+
+.menuItem{
+    flex-grow: 1;
+    align-content: baseline;
+    display: flex;
+    align-items: center;
+}
+
+.menuRight{
+    justify-content: flex-end;
+    display: flex;
+}
+
+.link{
+    composes: text from global;
+    composes: text_type_main-default from global;
+    composes: p-5 from global;
+    color: #8585AD;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.link.active{
+    color: white;
+}
+
+.link:hover{
+    color: white;
+}
