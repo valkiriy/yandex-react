@@ -6,15 +6,18 @@ import styles from './burger-constructor.module.css'
 
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientType} from "../../utils/types";
+import {useDispatch} from "react-redux";
+import {REMOVE_INGREDIENT} from "../../services/actions/burger";
 
-export function ConstructorItem({ item, pos }){
+export function ConstructorItem({pos, item, index}){
+
+    const dispatch = useDispatch()
+
     let name = item.name;
-    if(pos === 'top'){
-        name += " (вверх)"
+    if(item.type === 'bun'){
+        name += pos === 'top' ? " (вверх)" : pos === 'bottom' ? " (низ)" : '';
     }
-    if(pos === 'bottom'){
-        name += " (низ)"
-    }
+
     return (
         <div className={styles.item}>
             {pos === '' ? <DragIcon type="primary" /> : null }
@@ -24,6 +27,7 @@ export function ConstructorItem({ item, pos }){
                 text={name}
                 price={item.price}
                 thumbnail={item.image}
+                handleClose={() => dispatch({type: REMOVE_INGREDIENT, index: index})}
             />
         </div>
     )
@@ -32,5 +36,6 @@ export function ConstructorItem({ item, pos }){
 
 ConstructorItem.propTypes = {
     item: ingredientType.isRequired,
-    pos: PropTypes.string
+    pos: PropTypes.string,
+    index: PropTypes.number
 }
