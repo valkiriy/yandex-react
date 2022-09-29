@@ -1,4 +1,4 @@
-import {ADD_INGREDIENT, REMOVE_INGREDIENT, SET_BUN} from "../actions/burger"
+import {ADD_INGREDIENT, REMOVE_INGREDIENT, SET_BUN, SET_INGREDIENT_INDEX} from "../actions/burger"
 
 const initialState = {
     bun: null,
@@ -19,6 +19,16 @@ export const burgerReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ingredients: ingrs
+            };
+        }
+        case SET_INGREDIENT_INDEX: {
+            const newIngrs = [...state.ingredients];
+            const ingredient = newIngrs[action.dragIndex]
+            newIngrs.splice(action.dragIndex, 1)
+            newIngrs.splice(action.hoverIndex, 0, ingredient)
+            return {
+                ...state,
+                ingredients: newIngrs
             };
         }
         case REMOVE_INGREDIENT: {

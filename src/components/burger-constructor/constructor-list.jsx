@@ -35,5 +35,5 @@ export function ConstructorList({items, bun}){
 
 ConstructorList.propTypes = {
     items: PropTypes.arrayOf(ingredientType).isRequired,
-    bun: ingredientType.isRequired,
+    bun: ingredientType,
 }
