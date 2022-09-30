@@ -18,7 +18,7 @@ export function BurgerConstructor(){
 
     const dispatch = useDispatch()
     const sendOrderHandler = () => {
-        dispatch(sendOrder([bun, bun, ingredients]))
+        dispatch(sendOrder([bun, bun, ...ingredients]))
     }
 
     let [, dropTarget] = useDrop({
