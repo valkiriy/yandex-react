@@ -5,13 +5,28 @@ import styles from './burger-ingredients.module.css'
 import {ingredientType} from '../../utils/types'
 import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import {Modal} from "../modal/modal";
+import {useDispatch, useSelector} from "react-redux";
+import {HIDE_MODAL, SET_INGREDIENT, SHOW_MODAL} from "../../services/actions/view-ingridient";
 
 export function IngredientsList({ items }){
 
-    const [showInfoItem, setShowInfoItem] = React.useState(null)
+    const {showModal, ingredient} = useSelector(state => state.viewIngredient)
+    const dispatch = useDispatch();
 
     function handleShowInfoItem(item){
-        setShowInfoItem(item)
+        if(showModal){
+            dispatch({
+                type: HIDE_MODAL
+            })
+        }else{
+            dispatch({
+                type: SHOW_MODAL
+            })
+        }
+        dispatch({
+            type: SET_INGREDIENT,
+            ingredient: item,
+        })
     }
 
     const list = items.map((item, index) => (<IngredientsItem key={item._id} item={item} handleShowInfoItem={handleShowInfoItem} />))
@@ -20,9 +35,9 @@ export function IngredientsList({ items }){
             <div className={styles.list}>
                 {list}
             </div>
-            {showInfoItem && (
+            {showModal && (
                 <Modal onClose={() => handleShowInfoItem(null) }>
-                    <IngredientDetails ingredient={showInfoItem} />
+                    <IngredientDetails ingredient={ingredient} />
                 </Modal>
             )}
         </>
