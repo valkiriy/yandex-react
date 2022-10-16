@@ -1,33 +1,49 @@
 import React from 'react';
-import styles from "./app.module.css"
 import '@ya.praktikum/react-developer-burger-ui-components'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import {ProvideUser} from '../../services/user'
 
 import {AppHeader} from "../app-header/app-header";
-import {BurgerIngredients} from "../burger-ingredients/burger-ingredients";
-import {BurgerConstructor} from "../burger-constructor/burger-constructor";
-import {useDispatch, useSelector} from "react-redux";
-import {getIngredients} from "../../services/actions/ingridients";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import IndexPage from "../../pages/index/index"
+import ForgotPasswordPage from "../../pages/forgot-password/forgot-password"
+import IngredientsPage from "../../pages/ingredients/ingredients"
+import LoginPage from "../../pages/login/login"
+import ProfileIndex from "../../pages/profile/index"
+import RegisterPage from "../../pages/register/register"
+import ResetPasswordPage from "../../pages/reset-password/reset-password"
+import {ProtectedRoute} from "../protected-route";
 
 function App() {
-
-    const {items} = useSelector(state => state.ingredients)
-    const dispatch = useDispatch();
-    React.useEffect(() => {
-        dispatch(getIngredients())
-    }, [])
-
     return (
-        <>
-            <AppHeader />
-            <main className={`${styles.main} ${styles.container}`}>
-                <DndProvider backend={HTML5Backend}>
-                    <BurgerIngredients ingredients={items} />
-                    <BurgerConstructor />
-                </DndProvider>
-            </main>
-        </>
+        <ProvideUser>
+            <Router>
+                <AppHeader />
+                <Switch>
+                    <Route path="/register" exact={true}>
+                        <RegisterPage />
+                    </Route>
+                    <Route path="/login" exact={true}>
+                        <LoginPage />
+                    </Route>
+                    <Route path="/forgot-password" exact={true}>
+                        <ForgotPasswordPage />
+                    </Route>
+                    <Route path="/reset-password" exact={true}>
+                        <ResetPasswordPage />
+                    </Route>
+                    <ProtectedRoute path="/profile">
+                        <ProfileIndex />
+                    </ProtectedRoute>
+                    <Route path="/ingredients/:id" exact={true}>
+                        <IngredientsPage />
+                    </Route>
+                    <Route path="/" exact={true}>
+                        <IndexPage />
+                    </Route>
+                </Switch>
+            </Router>
+        </ProvideUser>
     );
 }
 

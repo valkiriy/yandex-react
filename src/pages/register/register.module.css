@@ -1,0 +1,21 @@
+
+
+.content{
+    width: 480px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.title{
+    composes: text from global;
+    composes: text_type_main-medium from global;
+}
+
+.field{
+    justify-content: center;
+    display: flex;
+}
+
+.link{
+    color: #4C4CFF;
+}

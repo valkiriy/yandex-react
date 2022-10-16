@@ -1,6 +1,8 @@
 import React from "react";
 import styles from './app-header.module.css'
 
+import {NavLink} from "react-router-dom"
+
 import {Logo, BurgerIcon, ListIcon, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 export function AppHeader(){
@@ -8,21 +10,21 @@ export function AppHeader(){
         <header className={styles.header}>
             <menu className={styles.menu}>
                 <div className={`${styles.menuLeft} ${styles.menuItem}`}>
-                    <a href="#2" className={`${styles.link} ${styles.active}`}>
+                    <NavLink to={{pathname: `/` }} exact className={styles.link} activeClassName={styles.active}>
                         <BurgerIcon type="primary" />
                         <span className="pl-2">Конструктор</span>
-                    </a>
-                    <a href="#2" className={styles.link}>
+                    </NavLink>
+                    <NavLink to={{pathname: `/sdfsdfds`}} className={styles.link} activeClassName={styles.active}>
                         <ListIcon type="primary" />
                         <span className="pl-2">Лента заказов</span>
-                    </a>
+                    </NavLink>
                 </div>
-                <a href="#1" className={`${styles.menuItem}`}><Logo /></a>
+                <NavLink to={{pathname: `/`}} className={`${styles.menuItem}`}><Logo /></NavLink>
                 <div className={`${styles.menuRight} ${styles.menuItem}`}>
-                    <a href="#2" className={styles.link}>
+                    <NavLink to={{pathname: `/profile`}} className={styles.link} activeClassName={styles.active}>
                         <ProfileIcon type="primary" />
                         <span className="pl-2">Личный кабинет</span>
-                    </a>
+                    </NavLink>
                 </div>
             </menu>
         </header>

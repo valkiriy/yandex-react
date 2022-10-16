@@ -7,6 +7,7 @@ import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import {Modal} from "../modal/modal";
 import {useDispatch, useSelector} from "react-redux";
 import {HIDE_MODAL, SET_INGREDIENT, SHOW_MODAL} from "../../services/actions/view-ingridient";
+import {useHistory} from "react-router-dom";
 
 export function IngredientsList({ items }){
 

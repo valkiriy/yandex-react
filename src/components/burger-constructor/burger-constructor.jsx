@@ -9,8 +9,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {HIDE_MODAL_INFO_ORDER, sendOrder} from "../../services/actions/order";
 import {useDrop} from "react-dnd";
 import {ADD_INGREDIENT, SET_BUN} from "../../services/actions/burger";
+import {useUser} from "../../services/user";
+import {useHistory} from "react-router-dom";
 
 export function BurgerConstructor(){
+
+    let user = useUser();
+    const history = useHistory();
 
     const {bun, ingredients} = useSelector(state => state.burger)
 
@@ -18,7 +23,11 @@ export function BurgerConstructor(){
 
     const dispatch = useDispatch()
     const sendOrderHandler = () => {
-        dispatch(sendOrder([bun, ...ingredients, bun]))
+        if(user.user){
+            dispatch(sendOrder([bun, ...ingredients, bun]))
+        }else{
+            history.replace('/login', {r: '/'})
+        }
     }
 
     let [, dropTarget] = useDrop({
@@ -47,7 +56,7 @@ export function BurgerConstructor(){
                     {ingredients.reduce((amount, item)=> {return amount + item.price }, 0) + (bun ? bun.price * 2 : 0)} <CurrencyIcon type="large" />
                 </span>
                     <span>
-                    <Button type="primary" onClick={() => sendOrderHandler()} size="large">
+                    <Button htmlType={"button"} type="primary" onClick={() => sendOrderHandler()} size="large">
                       Оформить заказ
                     </Button>
                 </span>

@@ -2,6 +2,11 @@ div:focus{
     outline: none;
 }
 
+.page-main-content{
+    display: flex;
+    margin-top: 100px;
+}
+
 /* Firefox */
 * {
     scrollbar-width: thin;

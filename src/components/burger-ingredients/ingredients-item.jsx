@@ -6,6 +6,7 @@ import {ingredientType} from "../../utils/types";
 import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
+import {Link} from "react-router-dom";
 
 
 export function IngredientsItem({ item, handleShowInfoItem }){
@@ -21,13 +22,22 @@ export function IngredientsItem({ item, handleShowInfoItem }){
     })
 
     return (
-        <div className={styles.item} onClick={() => handleShowInfoItem(item)} ref={dragRef}>
-            {count > 0 && (<Counter count={count} size="default" />) }
-            <div>
-                <img className={styles.item_image} src={item.image} alt={item.name}/>
-                <div className={styles.item_price}><span>{item.price}</span> <CurrencyIcon type="primary" /></div>
-            </div>
-            <p className={styles.item_name}>{item.name}</p>
+        <div className={styles.item}
+             //onClick={(e) => handleShowInfoItem(item)}
+             ref={dragRef}>
+            <Link
+                to={{
+                    pathname: `/ingredients/${item._id}`,
+                }}
+                className={styles.link}
+            >
+                {count > 0 && (<Counter count={count} size="default" />) }
+                <div>
+                    <img className={styles.item_image} src={item.image} alt={item.name}/>
+                    <div className={styles.item_price}><span>{item.price}</span> <CurrencyIcon type="primary" /></div>
+                </div>
+                <p className={styles.item_name}>{item.name}</p>
+            </Link>
         </div>
     )
 }
