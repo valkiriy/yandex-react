@@ -15,9 +15,9 @@ export function BurgerIngredients(){
     const listMainRef = useRef();
 
     const scrollHandler = _ => {
-        if(listBunRef.current.getBoundingClientRect().y > 0){
+        if(listBunRef.current && listBunRef.current.getBoundingClientRect().y > 0){
             setCurrent('bun')
-        }else if(listSauceRef.current.getBoundingClientRect().y > 0){
+        }else if(listSauceRef.current && listSauceRef.current.getBoundingClientRect().y > 0){
             setCurrent('sauce')
         }else{
             setCurrent('main')

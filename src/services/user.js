@@ -1,5 +1,4 @@
 import React, {useContext, createContext, useState} from 'react';
-import {requestLogin, requestLogout, requestRegister, requestSaveUser, requestToken, requestUser} from "./api";
 import {deleteCookie, getCookie, setCookie} from "./utils";
 import {infoUser, loginUser, logoutUser, registerUser, saveInfoUser, updateTokenUser} from "./actions/auth";
 import {useDispatch} from "react-redux";
@@ -51,9 +50,7 @@ export function useProvideUser() {
             return dispatch(infoUser()).then(data => {
                 setUser({ ...data.user});
             }).catch(e => {
-                if(e.message === 'jwt expired'){
-                    return updateToken()
-                }
+                return updateToken()
             })
         }
         return Promise.reject();
@@ -69,6 +66,8 @@ export function useProvideUser() {
         return dispatch(updateTokenUser()).then(data => {
             setCookie('access_token', data.accessToken.split("Bearer ")[1]);
             setCookie('refresh_token', data.refreshToken);
+        }).catch(() => {
+            logout()
         })
     }
 

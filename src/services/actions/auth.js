@@ -43,8 +43,8 @@ export const infoUser = () => () => {
         } else {
             return Promise.reject(res);
         }
-    }).catch(() => {
-        return Promise.reject();
+    }).catch((e) => {
+        return Promise.reject(e);
     })
 }
 

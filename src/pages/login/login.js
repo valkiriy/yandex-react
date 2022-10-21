@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import styles from "./login.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -29,9 +29,11 @@ function Login(){
         [form, user, history, location]
     );
 
-    if (user.user) {
-        history.replace('/')
-    }
+    useEffect(() => {
+        if (user.user) {
+            history.replace('/')
+        }
+    }, [user])
 
     return (
         <div className={`page-main-content`}>

@@ -30,7 +30,6 @@ export function IngredientsItem({ item}){
                     pathname: `/ingredients/${item._id}`,
                     state: {
                         background: location,
-                        sss: 1
                     }
                 }}
                 className={styles.link}

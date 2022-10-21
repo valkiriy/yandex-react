@@ -18,14 +18,13 @@ function ModalIngredient(){
     const {items} = useSelector(state => state.ingredients)
     const ingredient = items.find(x => x._id === id)
 
-    let back = e => {
-        e.stopPropagation();
+    let back = () => {
         history.goBack();
     };
 
     return (
         <>
-            {ingredient ? <Modal onClose={(e) => back(e)}><IngredientDetails ingredient={ingredient} /></Modal> : "" }
+            {ingredient ? <Modal onClose={back}><IngredientDetails ingredient={ingredient} /></Modal> : "" }
         </>
     )
 }
