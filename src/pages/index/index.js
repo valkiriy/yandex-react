@@ -6,11 +6,10 @@ import {getIngredients} from "../../services/actions/ingridients";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import styles from "./index.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 
 function Index(){
 
-    const {items} = useSelector(state => state.ingredients)
     const dispatch = useDispatch();
 
     React.useEffect(() => {
@@ -20,7 +19,7 @@ function Index(){
     return (
         <main className={`${styles.main} ${styles.container}`}>
             <DndProvider backend={HTML5Backend}>
-                <BurgerIngredients ingredients={items} />
+                <BurgerIngredients />
                 <BurgerConstructor />
             </DndProvider>
         </main>

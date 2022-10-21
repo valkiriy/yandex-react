@@ -21,7 +21,7 @@ export function ConstructorList({items, bun}){
                         </div>
                     </div>
                 )}
-                {items.map((item, index) => (<ConstructorItem key={index + item._id} pos={""} item={item} index={index} />))}
+                {items.map((item, index) => (<ConstructorItem key={item._id}  pos={""} item={item} index={index} />))}
             </div>
             {bun && <ConstructorItem key={999 + bun._id} pos={"bottom"} item={bun} index={999} />}
             {!bun && (

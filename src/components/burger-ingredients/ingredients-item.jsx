@@ -3,13 +3,14 @@ import styles from './burger-ingredients.module.css'
 
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientType} from "../../utils/types";
-import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 
-export function IngredientsItem({ item, handleShowInfoItem }){
+export function IngredientsItem({ item}){
+
+    let location = useLocation();
 
     const {bun, ingredients} = useSelector(state => state.burger)
     const count = [bun, bun, ...ingredients]
@@ -23,11 +24,14 @@ export function IngredientsItem({ item, handleShowInfoItem }){
 
     return (
         <div className={styles.item}
-             //onClick={(e) => handleShowInfoItem(item)}
              ref={dragRef}>
             <Link
                 to={{
                     pathname: `/ingredients/${item._id}`,
+                    state: {
+                        background: location,
+                        sss: 1
+                    }
                 }}
                 className={styles.link}
             >
@@ -44,5 +48,4 @@ export function IngredientsItem({ item, handleShowInfoItem }){
 
 IngredientsItem.propTypes = {
     item: ingredientType.isRequired,
-    handleShowInfoItem: PropTypes.func.isRequired,
 }

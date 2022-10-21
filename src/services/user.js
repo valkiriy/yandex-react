@@ -1,6 +1,8 @@
 import React, {useContext, createContext, useState} from 'react';
 import {requestLogin, requestLogout, requestRegister, requestSaveUser, requestToken, requestUser} from "./api";
 import {deleteCookie, getCookie, setCookie} from "./utils";
+import {infoUser, loginUser, logoutUser, registerUser, saveInfoUser, updateTokenUser} from "./actions/auth";
+import {useDispatch} from "react-redux";
 
 // создаем контекст авторизации, значения по умолчанию вычислить изначально не возможно = undefined
 const UserContext = createContext(undefined);
@@ -18,112 +20,62 @@ export function useUser() {
 
 export function useProvideUser() {
     const [user, setUser] = useState(null);
+    const dispatch = useDispatch();
 
     const register = (form) => {
-        return new Promise( async (resolve, reject) => {
-            await requestRegister(form.email, form.password, form.name).then(data => {
-                if (data.success) {
-                    setCookie('access_token', data.accessToken.split("Bearer ")[1]);
-                    setCookie('refresh_token', data.refreshToken);
-                    setUser({ ...data.user});
-                    resolve()
-                }
-                reject()
-            }).catch(e => {
-                reject()
-            })
+        return dispatch(registerUser(form)).then((data) => {
+            setCookie('access_token', data.accessToken.split("Bearer ")[1]);
+            setCookie('refresh_token', data.refreshToken);
+            setUser({ ...data.user});
         })
     }
 
     const login = (form) => {
-        return new Promise( async (resolve, reject) => {
-            await requestLogin(form.email, form.password).then(data => {
-                if (data.success) {
-                    setCookie('access_token', data.accessToken.split("Bearer ")[1]);
-                    setCookie('refresh_token', data.refreshToken);
-                    setUser({ ...data.user});
-                    resolve()
-                }
-                reject()
-            }).catch(e => {
-                reject()
-            })
+        return dispatch(loginUser(form)).then((data) => {
+            setCookie('access_token', data.accessToken.split("Bearer ")[1]);
+            setCookie('refresh_token', data.refreshToken);
+            setUser({ ...data.user});
         })
     }
 
-    const logout = async () => {
-        return new Promise( async (resolve, reject) => {
-            await requestLogout().then(data => {
-                if (data.success) {
-                    deleteCookie('access_token');
-                    deleteCookie('refresh_token');
-                    setUser(null);
-                    resolve()
-                }
-                reject()
-            }).catch(e => {
-                reject()
-            })
+    const logout = () => {
+        return dispatch(logoutUser()).then(() => {
+            deleteCookie('access_token');
+            deleteCookie('refresh_token');
+            setUser(null);
         })
     }
 
     const loadUserInfo = () => {
-        return new Promise( async (resolve, reject) => {
-            if(getCookie('access_token')){
-                await requestUser().then(data => {
-                    if (data.success) {
-                        setUser({ ...data.user});
-                        resolve()
-                    }else if(data.message === 'jwt expired'){
-                        updateToken().then(() => {
-                            resolve()
-                        }).catch(() => {
-                            reject()
-                        })
-                    }
-                    reject()
-                }).catch(e => {
-                    reject()
-                })
-            }else{
-                reject()
-            }
-        })
+        if(getCookie('access_token')){
+            return dispatch(infoUser()).then(data => {
+                setUser({ ...data.user});
+            }).catch(e => {
+                if(e.message === 'jwt expired'){
+                    return updateToken()
+                }
+            })
+        }
+        return Promise.reject();
     }
 
     const saveUserInfo = (email, password, name) => {
-        return new Promise( async (resolve, reject) => {
-            await requestSaveUser({email, password, name}).then(data => {
-                if (data.success) {
-                    setUser({ ...data.user});
-                    resolve()
-                }
-                reject()
-            }).catch(e => {
-                reject()
-            })
+        return dispatch(saveInfoUser(email, password, name)).then(data => {
+            setUser({ ...data.user});
         })
     }
 
     const updateToken = () => {
-        return new Promise( async (resolve, reject) => {
-            await requestToken().then(data => {
-                if (data.success) {
-                    setCookie('access_token', data.accessToken.split("Bearer ")[1]);
-                    setCookie('refresh_token', data.refreshToken);
-                    resolve()
-                }
-                reject()
-            }).catch(e => {
-                reject()
-            })
+        return dispatch(updateTokenUser()).then(data => {
+            setCookie('access_token', data.accessToken.split("Bearer ")[1]);
+            setCookie('refresh_token', data.refreshToken);
         })
     }
 
     // если юзер не определен, то делаем запрос на сервер для получения данных
     // то есть чтобы при перезагрузке страницы сразу подтягивался юзер
     if(!user){
-        loadUserInfo()
+        loadUserInfo().catch(() => {})
     }
 
     return {

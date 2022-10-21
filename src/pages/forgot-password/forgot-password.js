@@ -7,7 +7,7 @@ import {requestResetPassword} from "../../services/api";
 import {useUser} from "../../services/user";
 
 function ForgotPassword(){
-    let user = useUser();
+    const user = useUser();
 
     const history = useHistory();
     const [form, setValue] = useState({ email: '' });
@@ -15,11 +15,12 @@ function ForgotPassword(){
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
-    let request = useCallback(
+    const request = useCallback(
         e => {
+            e.preventDefault();
             requestResetPassword(form.email).then(res => {
                 if (res && res.success) {
-                    history.replace({ pathname: '/reset-password' });
+                    history.replace({ pathname: '/reset-password', state: {code_send: true} });
                 }else{
                     console.log(res)
                     alert('Что-то пошло не так');
@@ -37,24 +38,26 @@ function ForgotPassword(){
     return (
         <div className={`page-main-content`}>
             <div className={styles.content}>
-                <div className={styles.title}>Восстановление пароля</div>
-                <div className={`pt-6 ${styles.field}`}>
-                    <Input
-                        type={'email'}
-                        value={form.email}
-                        onChange={onChange}
-                        name={'email'}
-                        placeholder={'Укажите e-mail'}
-                    />
-                </div>
-                <div className={`pt-6`}>
-                    <Button htmlType={"button"} type="primary" onClick={request} size="medium">
-                        Восстановить
-                    </Button>
-                </div>
-                <div className={`pt-20 text text_type_main-default`}>
-                    Вспомнили пароль? <Link to={"/login"} className={styles.link}>Войти</Link>
-                </div>
+                <form onSubmit={request}>
+                    <div className={styles.title}>Восстановление пароля</div>
+                    <div className={`pt-6 ${styles.field}`}>
+                        <Input
+                            type={'email'}
+                            value={form.email}
+                            onChange={onChange}
+                            name={'email'}
+                            placeholder={'Укажите e-mail'}
+                        />
+                    </div>
+                    <div className={`pt-6`}>
+                        <Button htmlType={"submit"} type="primary" size="medium">
+                            Восстановить
+                        </Button>
+                    </div>
+                    <div className={`pt-20 text text_type_main-default`}>
+                        Вспомнили пароль? <Link to={"/login"} className={styles.link}>Войти</Link>
+                    </div>
+                </form>
             </div>
         </div>
     )

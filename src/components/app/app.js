@@ -1,6 +1,6 @@
 import React from 'react';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {Route, Switch, useLocation} from 'react-router-dom';
 
 import {ProvideUser} from '../../services/user'
 
@@ -13,36 +13,41 @@ import ProfileIndex from "../../pages/profile/index"
 import RegisterPage from "../../pages/register/register"
 import ResetPasswordPage from "../../pages/reset-password/reset-password"
 import {ProtectedRoute} from "../protected-route";
+import ModalIngredient from "../ingredient-details/modal";
 
 function App() {
+
+    const location = useLocation();
+    const background = location.state && location.state.background;
+
     return (
         <ProvideUser>
-            <Router>
-                <AppHeader />
-                <Switch>
-                    <Route path="/register" exact={true}>
-                        <RegisterPage />
-                    </Route>
-                    <Route path="/login" exact={true}>
-                        <LoginPage />
-                    </Route>
-                    <Route path="/forgot-password" exact={true}>
-                        <ForgotPasswordPage />
-                    </Route>
-                    <Route path="/reset-password" exact={true}>
-                        <ResetPasswordPage />
-                    </Route>
-                    <ProtectedRoute path="/profile">
-                        <ProfileIndex />
-                    </ProtectedRoute>
-                    <Route path="/ingredients/:id" exact={true}>
-                        <IngredientsPage />
-                    </Route>
-                    <Route path="/" exact={true}>
-                        <IndexPage />
-                    </Route>
-                </Switch>
-            </Router>
+            <AppHeader />
+            <Switch location={background || location}>
+                <Route path="/register" exact={true}>
+                    <RegisterPage />
+                </Route>
+                <Route path="/login" exact={true}>
+                    <LoginPage />
+                </Route>
+                <Route path="/forgot-password" exact={true}>
+                    <ForgotPasswordPage />
+                </Route>
+                <Route path="/reset-password" exact={true}>
+                    <ResetPasswordPage />
+                </Route>
+                <ProtectedRoute path="/profile">
+                    <ProfileIndex />
+                </ProtectedRoute>
+                <Route path="/ingredients/:id" exact={true}>
+                    <IngredientsPage />
+                </Route>
+                <Route path="/" exact={true}>
+                    <IndexPage />
+                </Route>
+            </Switch>
+
+            {background && <Route path="/ingredients/:id" children={<ModalIngredient />} />}
         </ProvideUser>
     );
 }

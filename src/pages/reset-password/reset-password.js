@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import styles from "../login/login.module.css";
-import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, useHistory} from "react-router-dom";
+import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import {requestSavePassword} from "../../services/api";
 import {useUser} from "../../services/user";
 
@@ -9,7 +9,9 @@ import {useUser} from "../../services/user";
 
 
 function ResetPassword(){
-    let user = useUser();
+    const user = useUser();
+
+    const {state} = useLocation()
 
     const history = useHistory();
     const [form, setValue] = useState({ password: '', code: '' });
@@ -17,8 +19,9 @@ function ResetPassword(){
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
-    let request = useCallback(
+    const request = useCallback(
         e => {
+            e.preventDefault();
             requestSavePassword(form.password, form.code).then(res => {
                 if (res && res.success) {
                     history.replace({ pathname: '/login' });
@@ -35,32 +38,39 @@ function ResetPassword(){
         history.replace('/')
     }
 
+
+    if(!state || !state.hasOwnProperty('code_send')){
+        history.replace('/forgot-password')
+    }
+
     return (
         <div className={`page-main-content`}>
             <div className={styles.content}>
-                <div className={styles.title}>Восстановление пароля</div>
-                <div className={`pt-6 ${styles.field}`}>
-                    <PasswordInput
-                        value={form.password}
-                        onChange={onChange}
-                        name={'password'}
-                    />
-                </div>
-                <div className={`pt-6 ${styles.field}`}>
-                    <EmailInput
-                        value={form.code}
-                        onChange={onChange}
-                        name={'code'}
-                    />
-                </div>
-                <div className={`pt-6`}>
-                    <Button htmlType={"button"} type="primary" onClick={request} size="medium">
-                        Сохранить
-                    </Button>
-                </div>
-                <div className={`pt-20 text text_type_main-default`}>
-                    Вспомнили пароль? <Link to={"/login"} className={styles.link}>Войти</Link>
-                </div>
+                <form onSubmit={request}>
+                    <div className={styles.title}>Восстановление пароля</div>
+                    <div className={`pt-6 ${styles.field}`}>
+                        <PasswordInput
+                            value={form.password}
+                            onChange={onChange}
+                            name={'password'}
+                        />
+                    </div>
+                    <div className={`pt-6 ${styles.field}`}>
+                        <Input
+                            value={form.code}
+                            onChange={onChange}
+                            name={'code'}
+                        />
+                    </div>
+                    <div className={`pt-6`}>
+                        <Button htmlType={"submit"} type="primary" size="medium">
+                            Сохранить
+                        </Button>
+                    </div>
+                    <div className={`pt-20 text text_type_main-default`}>
+                        Вспомнили пароль? <Link to={"/login"} className={styles.link}>Войти</Link>
+                    </div>
+                </form>
             </div>
         </div>
     )

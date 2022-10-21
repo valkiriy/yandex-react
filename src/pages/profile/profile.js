@@ -6,7 +6,7 @@ import {Input, PasswordInput, Button} from "@ya.praktikum/react-developer-burger
 
 function Profile(){
 
-    let user = useUser();
+    const user = useUser();
     const [isChangeForm, setIsChangeForm] = useState(false)
 
     const [form, setValue] = useState({ name: user.user.name, email: user.user.email, password: '' });
@@ -15,13 +15,11 @@ function Profile(){
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
-    const save = () => {
-        console.log('save')
+    const save = (e) => {
+        e.preventDefault();
         setIsChangeForm(false);
         user.saveUserInfo(form.email, form.password, form.name)
     };
-
-    console.log('isChangeForm', isChangeForm)
 
     const cancel = () => {
         console.log('cancel')
@@ -31,6 +29,7 @@ function Profile(){
 
     return (
         <div>
+            <form onSubmit={save}>
             <div className={`${styles.field}`}>
                 <Input
                     type={'text'}
@@ -59,7 +58,7 @@ function Profile(){
 
             { !isChangeForm ||
                 (<div className={"pt-5"}>
-                    <Button htmlType={"button"} onClick={() => save()} type="primary">
+                    <Button htmlType={"submit"} type="primary">
                         Сохранить изменения
                     </Button>
                     <Button htmlType={"button"} type="secondary" onClick={() => cancel()}>
@@ -67,6 +66,7 @@ function Profile(){
                     </Button>
                 </div>)
             }
+            </form>
         </div>
     )
 }
