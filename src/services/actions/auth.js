@@ -7,8 +7,8 @@ export const loginUser = (form) => () => {
         } else {
             return Promise.reject();
         }
-    }).catch(() => {
-        return Promise.reject();
+    }).catch((err) => {
+        console.log(err)
     })
 }
 
@@ -19,8 +19,8 @@ export const registerUser = (form) => () => {
         } else {
             return Promise.reject();
         }
-    }).catch(() => {
-        return Promise.reject();
+    }).catch((err) => {
+        console.log(err)
     })
 }
 
@@ -31,8 +31,8 @@ export const logoutUser = () => () => {
         } else {
             return Promise.reject();
         }
-    }).catch(() => {
-        return Promise.reject();
+    }).catch((err) => {
+        console.log(err)
     })
 }
 
@@ -43,8 +43,8 @@ export const infoUser = () => () => {
         } else {
             return Promise.reject(res);
         }
-    }).catch((e) => {
-        return Promise.reject(e);
+    }).catch((err) => {
+        console.log(err)
     })
 }
 
@@ -55,8 +55,8 @@ export const saveInfoUser = (email, password, name) => () => {
         } else {
             return Promise.reject();
         }
-    }).catch(() => {
-        return Promise.reject();
+    }).catch((err) => {
+        console.log(err)
     })
 }
 
@@ -67,7 +67,7 @@ export const updateTokenUser = () => () => {
         } else {
             return Promise.reject();
         }
-    }).catch(() => {
-        return Promise.reject();
+    }).catch((err) => {
+        console.log(err)
     })
 }
