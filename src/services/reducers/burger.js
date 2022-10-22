@@ -16,7 +16,7 @@ export const burgerReducer = (state = initialState, action) => {
         }
         case ADD_INGREDIENT: {
             const ingrs = state.ingredients;
-            ingrs.push({...action.ingredient, uuid: uuidv4()})
+            ingrs.push(action.ingredient)
             return {
                 ...state,
                 ingredients: ingrs

@@ -11,6 +11,7 @@ import {useDrop} from "react-dnd";
 import {ADD_INGREDIENT, SET_BUN} from "../../services/actions/burger";
 import {useUser} from "../../services/user";
 import {useHistory} from "react-router-dom";
+import {uuidv4} from "../../services/utils";
 
 export function BurgerConstructor(){
 
@@ -41,7 +42,7 @@ export function BurgerConstructor(){
             }else{
                 dispatch({
                     type: ADD_INGREDIENT,
-                    ingredient: item
+                    ingredient: {...item, uuid: uuidv4()}
                 })
             }
         }
