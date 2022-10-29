@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import PropTypes from "prop-types";
 
 import styles from './burger-constructor.module.css'
@@ -19,6 +19,10 @@ export function ConstructorItem({pos, item, index}){
         accept: 'sort_ingredient',
         hover: (item, monitor) => {
 
+            if (!ref.current || !monitor.isOver()) {
+                return
+            }
+
             const dragIndex = item.index
             const hoverIndex = index
             if (dragIndex === hoverIndex) {
@@ -29,6 +33,7 @@ export function ConstructorItem({pos, item, index}){
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
             const clientOffset = monitor.getClientOffset()
             const hoverClientY = clientOffset.y - hoverBoundingRect.top
+
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return
             }
@@ -36,13 +41,13 @@ export function ConstructorItem({pos, item, index}){
                 return
             }
 
+            item.index = hoverIndex
+
             dispatch({
                 type: SET_INGREDIENT_INDEX,
                 dragIndex: dragIndex,
                 hoverIndex: hoverIndex,
             })
-
-            item.index = hoverIndex
         }
     })
 

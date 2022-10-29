@@ -5,17 +5,19 @@ import styles from './burger-ingredients.module.css'
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components"
 import PropTypes from "prop-types";
 import {ingredientType} from "../../utils/types";
+import {useSelector} from "react-redux";
 
-export function BurgerIngredients({ingredients}){
+export function BurgerIngredients(){
+    const {items: ingredients} = useSelector(state => state.ingredients)
     const [current, setCurrent] = React.useState('bun')
     const listBunRef = useRef();
     const listSauceRef = useRef();
     const listMainRef = useRef();
 
     const scrollHandler = _ => {
-        if(listBunRef.current.getBoundingClientRect().y > 0){
+        if(listBunRef.current && listBunRef.current.getBoundingClientRect().y > 0){
             setCurrent('bun')
-        }else if(listSauceRef.current.getBoundingClientRect().y > 0){
+        }else if(listSauceRef.current && listSauceRef.current.getBoundingClientRect().y > 0){
             setCurrent('sauce')
         }else{
             setCurrent('main')
@@ -67,8 +69,4 @@ export function BurgerIngredients({ingredients}){
 
         </div>
     )
-}
-
-BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientType).isRequired
 }

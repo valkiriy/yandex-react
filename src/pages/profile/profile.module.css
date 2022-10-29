@@ -1,0 +1,42 @@
+.main{
+    display: flex;
+}
+
+.container{
+    max-width: 1280px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.menu{
+    width: 320px;
+    margin-right: 80px;
+}
+.menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.content{
+    composes: p-3 from global;
+}
+
+.link{
+    composes: text from global;
+    composes: text_type_main-medium from global;
+    composes: pt-5 from global;
+    composes: pb-5 from global;
+    color: #8585AD;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.link.active{
+    color: white;
+}
+
+.field{
+    display: flex;
+}

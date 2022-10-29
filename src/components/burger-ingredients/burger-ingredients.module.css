@@ -45,3 +45,8 @@
     composes: text_type_main-default from global;
 
 }
+
+.link{
+    color: white;
+    text-decoration: none;
+}
