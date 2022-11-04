@@ -3,18 +3,19 @@ import React, {useEffect, useRef} from "react";
 import {IngredientsList} from "./ingredients-list";
 import styles from './burger-ingredients.module.css'
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components"
-import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/types";
 import {useSelector} from "react-redux";
+import {TIngredient, TypeIngredient} from "../../utils/types";
 
 export function BurgerIngredients(){
+    // @ts-ignore
     const {items: ingredients} = useSelector(state => state.ingredients)
-    const [current, setCurrent] = React.useState('bun')
-    const listBunRef = useRef();
-    const listSauceRef = useRef();
-    const listMainRef = useRef();
 
-    const scrollHandler = _ => {
+    const [current, setCurrent] = React.useState('bun')
+    const listBunRef = useRef<HTMLInputElement>(null);
+    const listSauceRef = useRef<HTMLInputElement>(null);
+    const listMainRef = useRef<HTMLInputElement>(null);
+
+    const scrollHandler = () => {
         if(listBunRef.current && listBunRef.current.getBoundingClientRect().y > 0){
             setCurrent('bun')
         }else if(listSauceRef.current && listSauceRef.current.getBoundingClientRect().y > 0){
@@ -51,19 +52,19 @@ export function BurgerIngredients(){
                     <p className="text text_type_main-medium pb-6" ref={listBunRef}>
                         Булки
                     </p>
-                    <IngredientsList items={ingredients.filter(x => x.type === 'bun')} />
+                    <IngredientsList items={ingredients.filter((x: TIngredient) => x.type === TypeIngredient.BUN)} />
                 </div>
                 <div>
                     <p className="text text_type_main-medium  pt-10 pb-6" ref={listSauceRef}>
                         Соусы
                     </p>
-                    <IngredientsList items={ingredients.filter(x => x.type === 'sauce')} />
+                    <IngredientsList items={ingredients.filter((x: TIngredient) => x.type === TypeIngredient.SAUCE)} />
                 </div>
                 <div>
                     <p className="text text_type_main-medium  pt-10 pb-6" ref={listMainRef}>
                         Начинки
                     </p>
-                    <IngredientsList items={ingredients.filter(x => x.type === 'main')} />
+                    <IngredientsList items={ingredients.filter((x: TIngredient) => x.type === TypeIngredient.MAIN)} />
                 </div>
             </div>
 

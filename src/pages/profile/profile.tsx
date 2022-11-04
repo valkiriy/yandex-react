@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {useUser} from "../../services/user";
 
 import styles from "./profile.module.css";
@@ -9,21 +9,25 @@ function Profile(){
     const user = useUser();
     const [isChangeForm, setIsChangeForm] = useState(false)
 
+    // @ts-ignore
     const [form, setValue] = useState({ name: user.user.name, email: user.user.email, password: '' });
-    const onChange = e => {
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setIsChangeForm(true);
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
-    const save = (e) => {
+    const save = (e: FormEvent) => {
         e.preventDefault();
         setIsChangeForm(false);
+        // @ts-ignore
         user.saveUserInfo(form.email, form.password, form.name)
     };
 
     const cancel = () => {
         console.log('cancel')
         setIsChangeForm(false);
+        // @ts-ignore
         setValue({name: user.user.name, email: user.user.email, password: ''})
     };
 

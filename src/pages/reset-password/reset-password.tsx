@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState} from 'react';
 import styles from "../login/login.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory, useLocation} from "react-router-dom";
@@ -15,7 +15,7 @@ function ResetPassword(){
 
     const history = useHistory();
     const [form, setValue] = useState({ password: '', code: '' });
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
@@ -34,11 +34,13 @@ function ResetPassword(){
         [form, history]
     );
 
+    // @ts-ignore
     if (user.user) {
         history.replace('/')
     }
 
 
+    // @ts-ignore
     if(!state || !state.hasOwnProperty('code_send')){
         history.replace('/forgot-password')
     }

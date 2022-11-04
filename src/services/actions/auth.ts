@@ -1,6 +1,7 @@
 import {requestLogin, requestLogout, requestRegister, requestSaveUser, requestToken, requestUser} from "../api";
+import {TFormLogin, TFormRegister} from "../../utils/types";
 
-export const loginUser = (form) => () => {
+export const loginUser = (form: TFormLogin) => () => {
     return requestLogin(form.email, form.password).then((res) => {
         if (res && res.success) {
             return Promise.resolve(res);
@@ -13,7 +14,7 @@ export const loginUser = (form) => () => {
 
 }
 
-export const registerUser = (form) => () => {
+export const registerUser = (form: TFormRegister) => () => {
     return requestRegister(form.email, form.password, form.name).then((res) => {
         if (res && res.success) {
             return Promise.resolve(res);
@@ -49,7 +50,7 @@ export const infoUser = () => () => {
     })
 }
 
-export const saveInfoUser = (email, password, name) => () => {
+export const saveInfoUser = (email: string, password: string, name: string) => () => {
     return requestSaveUser(email, password, name).then((res) => {
         if (res && res.success) {
             return Promise.resolve(res);

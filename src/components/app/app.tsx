@@ -18,6 +18,7 @@ import ModalIngredient from "../ingredient-details/modal";
 function App() {
 
     const location = useLocation();
+    //@ts-ignore
     const background = location.state && location.state.background;
 
     return (

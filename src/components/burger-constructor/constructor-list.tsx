@@ -1,10 +1,14 @@
 import React from "react";
 import {ConstructorItem} from "./constructor-item";
 import styles from './burger-constructor.module.css'
-import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/types";
+import {TIngredient} from "../../utils/types";
 
-export function ConstructorList({items, bun}){
+interface IConstructorList {
+    items: TIngredient[],
+    bun: TIngredient
+}
+
+export function ConstructorList({items, bun}: IConstructorList){
 
     return (
         <div className={styles.list}>
@@ -22,7 +26,7 @@ export function ConstructorList({items, bun}){
                         </div>
                     </div>
                 )}
-                {items.map((item, index) => (<ConstructorItem key={item.uuid}  pos={""} item={item} index={index} />) )}
+                {items.map((item, index) => (<ConstructorItem pos={undefined} key={item.uuid} item={item} index={index} />) )}
             </div>
             {bun && <ConstructorItem key={999 + bun._id} pos={"bottom"} item={bun} index={999} />}
             {!bun && (
@@ -32,9 +36,4 @@ export function ConstructorList({items, bun}){
             )}
         </div>
     )
-}
-
-ConstructorList.propTypes = {
-    items: PropTypes.arrayOf(ingredientType).isRequired,
-    bun: ingredientType,
 }

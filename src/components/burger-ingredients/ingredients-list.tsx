@@ -1,10 +1,13 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import {IngredientsItem} from "./ingredients-item";
 import styles from './burger-ingredients.module.css'
-import {ingredientType} from '../../utils/types'
+import {TIngredient} from '../../utils/types'
 
-export function IngredientsList({ items }){
+interface IIngredientsList{
+    items: TIngredient[]
+}
+
+export function IngredientsList({ items }: IIngredientsList){
     const list = items.map((item, index) => (<IngredientsItem key={item._id} item={item} />))
     return (
         <>
@@ -13,8 +16,4 @@ export function IngredientsList({ items }){
             </div>
         </>
     )
-}
-
-IngredientsList.propTypes = {
-    items: PropTypes.arrayOf(ingredientType).isRequired
 }

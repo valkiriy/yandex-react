@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 
 export function OrderDetails() {
 
+    //@ts-ignore
     const {number} = useSelector(state => state.order.info)
 
     return (

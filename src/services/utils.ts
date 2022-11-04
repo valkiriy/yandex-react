@@ -1,28 +1,29 @@
 export function uuidv4() {
+    //@ts-ignore
     return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
 }
 
-export function request(url, options){
+export function request(url: string, options: RequestInit){
     return fetch(url, options).then(checkResponse)
 }
 
-export function checkResponse(res){
+export function checkResponse(res: Response){
     if(res.ok){
         return res.json();
     }
     return Promise.reject(`Error: ${res.status}`)
 }
 
-export function getCookie(name) {
+export function getCookie(name: string) {
     const matches = document.cookie.match(
         new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name, value, props) {
+export function setCookie(name: string, value: any, props: any) {
     props = props || {};
     let exp = props.expires;
     if (typeof exp == 'number' && exp) {
@@ -45,6 +46,6 @@ export function setCookie(name, value, props) {
     document.cookie = updatedCookie;
 }
 
-export function deleteCookie(name) {
+export function deleteCookie(name: string) {
     setCookie(name, null, { expires: -1 });
 }

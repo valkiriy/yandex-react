@@ -1,8 +1,15 @@
 import { useUser } from '../services/user';
 import { Redirect, Route } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, {ReactChild, useEffect, useState} from 'react';
 
-export function ProtectedRoute({ children, ...rest }) {
+interface IProtectedRoute{
+    children: ReactChild,
+    path: string,
+    exact?: boolean
+}
+
+export function ProtectedRoute({ children, ...rest }: IProtectedRoute) {
+    //@ts-ignore
     let { loadUserInfo, ...user } = useUser();
     const [isUserLoaded, setUserLoaded] = useState(false);
 

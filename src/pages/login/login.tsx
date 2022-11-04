@@ -1,50 +1,49 @@
-import React, {useCallback, useState} from 'react';
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
 
-import styles from "./register.module.css";
+import styles from "./login.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, useHistory} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import {useUser} from "../../services/user";
 
 
-function Register(){
-    const user = useUser();
+function Login(){
 
+    const user = useUser();
     const history = useHistory();
-    const [form, setValue] = useState({ name: '', email: '', password: '' });
-    const onChange = e => {
+    const location = useLocation();
+
+    const [form, setValue] = useState({ email: '', password: '' });
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
-    const register = useCallback(
+    const login = useCallback(
         e => {
             e.preventDefault();
-            user.register(form).then(() => {
-                history.replace('/')
+
+            // @ts-ignore
+            user.login(form).then(() => {
+                // @ts-ignore
+                history.replace(location.state.f ? location.state.f : '/')
             }).catch(() => {
-                alert('error register');
+                alert('error login');
             })
         },
-        [user, form, history]
+        [form, user, history, location]
     );
 
-    if (user.user) {
-        history.replace(history.location.state.r || '/')
-    }
+    useEffect(() => {
+        // @ts-ignore
+        if (user.user) {
+            history.replace('/')
+        }
+    }, [user])
 
     return (
         <div className={`page-main-content`}>
             <div className={styles.content}>
-                <form onSubmit={register}>
-                    <div className={styles.title}>Регистрация</div>
-                    <div className={`pt-6 ${styles.field}`}>
-                        <Input
-                            type={'text'}
-                            value={form.name}
-                            onChange={onChange}
-                            name={'name'}
-                            placeholder={'Имя'}
-                        />
-                    </div>
+                <form onSubmit={login}>
+                    <div className={styles.title}>Вход</div>
                     <div className={`pt-6 ${styles.field}`}>
                         <Input
                             type={'email'}
@@ -63,11 +62,14 @@ function Register(){
                     </div>
                     <div className={`pt-6`}>
                         <Button htmlType={"submit"} type="primary" size="medium">
-                            Зарегистрироваться
+                            Войти
                         </Button>
                     </div>
                     <div className={`pt-20 text text_type_main-default`}>
-                        Уже зарегистрированы? <Link to={"/login"} className={styles.link}>Войти</Link>
+                        Вы — новый пользователь? <Link to={"/register"} className={styles.link}>Зарегистрироваться</Link>
+                    </div>
+                    <div className={`pt-4 text text_type_main-default`}>
+                        Забыли пароль? <Link to={"/forgot-password"} className={styles.link}>Восстановить пароль</Link>
                     </div>
                 </form>
             </div>
@@ -75,4 +77,4 @@ function Register(){
     )
 }
 
-export default Register;
+export default Login;

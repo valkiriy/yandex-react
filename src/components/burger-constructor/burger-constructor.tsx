@@ -11,14 +11,17 @@ import {useDrop} from "react-dnd";
 import {AddIngredientBurger, SET_BUN} from "../../services/actions/burger";
 import {useUser} from "../../services/user";
 import {useHistory} from "react-router-dom";
+import {TIngredient, TypeIngredient} from "../../utils/types";
 
 export function BurgerConstructor(){
 
-    let user = useUser();
+    let user:any = useUser();
     const history = useHistory();
 
+    // @ts-ignore
     const {bun, ingredients} = useSelector(state => state.burger)
 
+    // @ts-ignore
     const {show_info} = useSelector(state => state.order)
 
     const dispatch = useDispatch()
@@ -32,8 +35,8 @@ export function BurgerConstructor(){
 
     let [, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(item){
-            if(item.type === 'bun'){
+        drop(item:TIngredient){
+            if(item.type === TypeIngredient.BUN){
                 dispatch({
                     type: SET_BUN,
                     ingredient: item
@@ -50,7 +53,7 @@ export function BurgerConstructor(){
                 <ConstructorList items={ingredients} bun={bun} />
                 <div className={styles.summary}>
                 <span className="text text_type_digits-medium">
-                    {ingredients.reduce((amount, item)=> {return amount + item.price }, 0) + (bun ? bun.price * 2 : 0)} <CurrencyIcon type="large" />
+                    {ingredients.reduce((amount: number, item: TIngredient)=> {return amount + item.price }, 0) + (bun ? bun.price * 2 : 0)} <CurrencyIcon type={"primary"} />
                 </span>
                     <span>
                     <Button htmlType={"button"} type="primary" onClick={() => sendOrderHandler()} size="large">

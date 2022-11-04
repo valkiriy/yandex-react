@@ -1,45 +1,53 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState} from 'react';
 
-import styles from "./login.module.css";
+import styles from "./register.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, useHistory, useLocation} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {useUser} from "../../services/user";
 
 
-function Login(){
-
+function Register(){
     const user = useUser();
-    const history = useHistory();
-    const location = useLocation();
 
-    const [form, setValue] = useState({ email: '', password: '' });
-    const onChange = e => {
+    const history = useHistory();
+    const [form, setValue] = useState({ name: '', email: '', password: '' });
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
-    const login = useCallback(
+    const register = useCallback(
         e => {
             e.preventDefault();
-            user.login(form).then(() => {
-                history.replace(location.state.f ? location.state.f : '/')
-            }).catch((e) => {
-                alert('error login');
+            // @ts-ignore
+            user.register(form).then(() => {
+                history.replace('/')
+            }).catch(() => {
+                alert('error register');
             })
         },
-        [form, user, history, location]
+        [user, form, history]
     );
 
-    useEffect(() => {
-        if (user.user) {
-            history.replace('/')
-        }
-    }, [user])
+    // @ts-ignore
+    if (user.user) {
+        // @ts-ignore
+        history.replace(history.location.state.r || '/')
+    }
 
     return (
         <div className={`page-main-content`}>
             <div className={styles.content}>
-                <form onSubmit={login}>
-                    <div className={styles.title}>Вход</div>
+                <form onSubmit={register}>
+                    <div className={styles.title}>Регистрация</div>
+                    <div className={`pt-6 ${styles.field}`}>
+                        <Input
+                            type={'text'}
+                            value={form.name}
+                            onChange={onChange}
+                            name={'name'}
+                            placeholder={'Имя'}
+                        />
+                    </div>
                     <div className={`pt-6 ${styles.field}`}>
                         <Input
                             type={'email'}
@@ -58,14 +66,11 @@ function Login(){
                     </div>
                     <div className={`pt-6`}>
                         <Button htmlType={"submit"} type="primary" size="medium">
-                            Войти
+                            Зарегистрироваться
                         </Button>
                     </div>
                     <div className={`pt-20 text text_type_main-default`}>
-                        Вы — новый пользователь? <Link to={"/register"} className={styles.link}>Зарегистрироваться</Link>
-                    </div>
-                    <div className={`pt-4 text text_type_main-default`}>
-                        Забыли пароль? <Link to={"/forgot-password"} className={styles.link}>Восстановить пароль</Link>
+                        Уже зарегистрированы? <Link to={"/login"} className={styles.link}>Войти</Link>
                     </div>
                 </form>
             </div>
@@ -73,4 +78,4 @@ function Login(){
     )
 }
 
-export default Login;
+export default Register;

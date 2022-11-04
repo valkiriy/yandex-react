@@ -2,17 +2,21 @@ import React from "react";
 import styles from './burger-ingredients.module.css'
 
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {ingredientType} from "../../utils/types";
+import {TIngredient} from "../../utils/types";
 import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
 
+interface IIngredientsItem {
+    item: TIngredient
+}
 
-export function IngredientsItem({ item}){
+export function IngredientsItem({item} : IIngredientsItem){
 
     let location = useLocation();
-
+    // @ts-ignore
     const {bun, ingredients} = useSelector(state => state.burger)
+
     const count = [bun, bun, ...ingredients]
         .filter(x => x)
         .filter(ingredient => ingredient._id === item._id).length
@@ -43,8 +47,4 @@ export function IngredientsItem({ item}){
             </Link>
         </div>
     )
-}
-
-IngredientsItem.propTypes = {
-    item: ingredientType.isRequired,
 }
