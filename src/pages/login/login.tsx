@@ -10,7 +10,7 @@ function Login(){
 
     const user = useUser();
     const history = useHistory();
-    const location = useLocation();
+    const location = useLocation<{f: string | Location}>();
 
     const [form, setValue] = useState({ email: '', password: '' });
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,21 +20,19 @@ function Login(){
     const login = useCallback(
         e => {
             e.preventDefault();
-
-            // @ts-ignore
-            user.login(form).then(() => {
-                // @ts-ignore
-                history.replace(location.state.f ? location.state.f : '/')
-            }).catch(() => {
-                alert('error login');
-            })
+            if(user){
+                user.login(form).then(() => {
+                    history.replace(location.state.f ? location.state.f : '/')
+                }).catch(() => {
+                    alert('error login');
+                })
+            }
         },
         [form, user, history, location]
     );
 
     useEffect(() => {
-        // @ts-ignore
-        if (user.user) {
+        if (user && user.user) {
             history.replace('/')
         }
     }, [user])

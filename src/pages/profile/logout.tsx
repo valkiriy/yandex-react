@@ -7,8 +7,7 @@ function ProfileLogout(){
     const user = useUser()
 
     useEffect(() => {
-        // @ts-ignore
-        user.logout()
+        user && user.logout()
     }, [])
 
     return (

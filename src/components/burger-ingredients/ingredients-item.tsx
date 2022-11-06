@@ -14,8 +14,10 @@ interface IIngredientsItem {
 export function IngredientsItem({item} : IIngredientsItem){
 
     let location = useLocation();
-    // @ts-ignore
-    const {bun, ingredients} = useSelector(state => state.burger)
+    const {bun, ingredients} = useSelector(
+        // @ts-ignore
+        (state) => state.burger
+    )
 
     const count = [bun, bun, ...ingredients]
         .filter(x => x)

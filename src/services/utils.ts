@@ -23,7 +23,7 @@ export function getCookie(name: string) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name: string, value: any, props: any) {
+export function setCookie(name: string, value: string | null, props: { [key: string]: any } = {}) {
     props = props || {};
     let exp = props.expires;
     if (typeof exp == 'number' && exp) {
@@ -31,10 +31,14 @@ export function setCookie(name: string, value: any, props: any) {
         d.setTime(d.getTime() + exp * 1000);
         exp = props.expires = d;
     }
-    if (exp && exp.toUTCString) {
-        props.expires = exp.toUTCString();
+    if (exp) {
+        if ("toUTCString" in exp) {
+            props.expires = exp.toUTCString();
+        }
     }
-    value = encodeURIComponent(value);
+    if(value){
+        value = encodeURIComponent(value);
+    }
     let updatedCookie = name + '=' + value;
     for (const propName in props) {
         updatedCookie += '; ' + propName;

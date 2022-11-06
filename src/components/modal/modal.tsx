@@ -1,4 +1,4 @@
-import React, {ReactChild} from "react";
+import React, {FC} from "react";
 import ReactDOM from "react-dom";
 import styles from './modal.module.css'
 
@@ -6,14 +6,13 @@ import {ModalOverlay} from "../modal-overlay/modal-overlay";
 
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-const modalRoot: any = document.getElementById("modal");
+const modalRoot: HTMLElement | null  = document.getElementById("modal");
 
 interface IModal {
-    children: ReactChild,
     onClose: () => void
 }
 
-export function Modal ({ children, onClose }: IModal) {
+export const Modal: FC<IModal> = ({ children, onClose }) => {
 
     React.useEffect(() => {
         function closeByEscape(evt: KeyboardEvent) {
@@ -27,7 +26,7 @@ export function Modal ({ children, onClose }: IModal) {
         }
     }, [])
 
-    return ReactDOM.createPortal((
+    return modalRoot && ReactDOM.createPortal((
         <>
             <div className={styles.modal} onKeyDown={onClose} >
                 <div className={styles.content} tabIndex={0}>

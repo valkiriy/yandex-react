@@ -1,4 +1,5 @@
 import {getCookie, request} from "./utils";
+import {TUserSave} from "../utils/types";
 
 const API_URL = "https://norma.nomoreparties.space/api"
 
@@ -66,14 +67,14 @@ export function requestUser(){
     })
 }
 
-export function requestSaveUser(email: string, password: string, name: string){
+export function requestSaveUser(form: TUserSave){
     return request(`${API_URL}/auth/user`, {
         method: 'PATCH',
         headers: {
             "Content-Type": "application/json",
             Authorization: 'Bearer ' + getCookie('access_token')
         },
-        body: JSON.stringify({email, password, name})
+        body: JSON.stringify(form)
     })
 }
 

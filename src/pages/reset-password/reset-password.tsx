@@ -11,7 +11,7 @@ import {useUser} from "../../services/user";
 function ResetPassword(){
     const user = useUser();
 
-    const {state} = useLocation()
+    const {state} = useLocation<{code_send: boolean}>()
 
     const history = useHistory();
     const [form, setValue] = useState({ password: '', code: '' });
@@ -34,13 +34,11 @@ function ResetPassword(){
         [form, history]
     );
 
-    // @ts-ignore
-    if (user.user) {
+    if (user && user.user) {
         history.replace('/')
     }
 
 
-    // @ts-ignore
     if(!state || !state.hasOwnProperty('code_send')){
         history.replace('/forgot-password')
     }

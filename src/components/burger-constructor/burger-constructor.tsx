@@ -15,18 +15,23 @@ import {TIngredient, TypeIngredient} from "../../utils/types";
 
 export function BurgerConstructor(){
 
-    let user:any = useUser();
+    let user = useUser();
     const history = useHistory();
 
-    // @ts-ignore
-    const {bun, ingredients} = useSelector(state => state.burger)
+    const {bun, ingredients} = useSelector(
+        //@ts-ignore
+        (state) => state.burger
+    )
 
-    // @ts-ignore
-    const {show_info} = useSelector(state => state.order)
+    const {show_info} = useSelector(
+        // в слаке сказали пока сделать так
+        //@ts-ignore
+        (state) => state.order
+    )
 
     const dispatch = useDispatch()
     const sendOrderHandler = () => {
-        if(user.user){
+        if(user && user.user){
             dispatch(sendOrder([bun, ...ingredients, bun]))
         }else{
             history.replace('/login', {r: '/'})

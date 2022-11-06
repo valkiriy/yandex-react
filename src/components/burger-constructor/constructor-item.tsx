@@ -6,7 +6,7 @@ import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger
 import {TIngredient, TypeIngredient} from "../../utils/types";
 import {useDispatch} from "react-redux";
 import {REMOVE_INGREDIENT, SET_INGREDIENT_INDEX} from "../../services/actions/burger";
-import {useDrag, useDrop} from "react-dnd";
+import {useDrag, useDrop, XYCoord} from "react-dnd";
 
 interface IConstructorItem {
     item: TIngredient,
@@ -35,7 +35,12 @@ export function ConstructorItem({pos = undefined, item, index}: IConstructorItem
 
             const hoverBoundingRect = ref.current.getBoundingClientRect()
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-            const clientOffset: any = monitor.getClientOffset()
+            const clientOffset: XYCoord | null = monitor.getClientOffset()
+
+            if(!clientOffset){
+                return
+            }
+
             const hoverClientY = clientOffset.y - hoverBoundingRect.top
 
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {

@@ -7,8 +7,10 @@ import {useSelector} from "react-redux";
 import {TIngredient, TypeIngredient} from "../../utils/types";
 
 export function BurgerIngredients(){
-    // @ts-ignore
-    const {items: ingredients} = useSelector(state => state.ingredients)
+    const {items: ingredients} = useSelector(
+        // @ts-ignore
+        (state) => state.ingredients
+    )
 
     const [current, setCurrent] = React.useState('bun')
     const listBunRef = useRef<HTMLInputElement>(null);

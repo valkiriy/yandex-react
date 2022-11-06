@@ -30,8 +30,7 @@ function ForgotPassword(){
     );
 
 
-    //@ts-ignore
-    if (user.user) {
+    if (user && user.user) {
         history.replace('/')
     }
 

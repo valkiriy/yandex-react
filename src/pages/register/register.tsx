@@ -18,8 +18,7 @@ function Register(){
     const register = useCallback(
         e => {
             e.preventDefault();
-            // @ts-ignore
-            user.register(form).then(() => {
+            user && user.register(form).then(() => {
                 history.replace('/')
             }).catch(() => {
                 alert('error register');

@@ -10,8 +10,10 @@ import {TIngredient} from "../../utils/types";
 
 function Ingredients(){
 
-    //@ts-ignore
-    const {items} = useSelector(state => state.ingredients)
+    const {items} = useSelector(
+        //@ts-ignore
+        (state) => state.ingredients
+    )
 
     const {id}: {id: string} = useParams()
     const dispatch = useDispatch();

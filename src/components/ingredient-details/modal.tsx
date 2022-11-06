@@ -16,8 +16,10 @@ function ModalIngredient(){
         dispatch(getIngredients())
     }, [])
 
-    // @ts-ignore
-    const {items} = useSelector(state => state.ingredients)
+    const {items} = useSelector(
+        // @ts-ignore
+        (state) => state.ingredients
+    )
 
     const ingredient = items.find((x: TIngredient) => x._id === id)
 
