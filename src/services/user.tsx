@@ -1,44 +1,48 @@
-import React, {useContext, createContext, useState} from 'react';
+import React, {useContext, createContext, useState, FC} from 'react';
 import {deleteCookie, getCookie, setCookie} from "./utils";
 import {infoUser, loginUser, logoutUser, registerUser, saveInfoUser, updateTokenUser} from "./actions/auth";
 import {useDispatch} from "react-redux";
+import {TBackendUser, TFormLogin, TFormRegister, TProviderUser, TUser, TUserSave} from "../utils/types";
 
 // создаем контекст авторизации, значения по умолчанию вычислить изначально не возможно = undefined
-const UserContext = createContext(undefined);
+const UserContext = createContext<TProviderUser | null>(null);
 
 // враппер, провайдер авторизации, используем хук в качестве значения, которое пробросим во всех потомков
-export function ProvideUser({ children }) {
+export const ProvideUser: FC = ({ children }) => {
     const user = useProvideUser();
-    return (<UserContext.Provider value={user}>{children}</UserContext.Provider>);
+    return (
+        <UserContext.Provider value={user}>
+            {children}
+        </UserContext.Provider>
+    )
 }
 
 // хук авторизации, из хука реакта. который вохвращает переданные значения в контекст
-export function useUser() {
+export const useUser: () => TProviderUser | null = () => {
     return useContext(UserContext);
 }
 
-export function useProvideUser() {
-    const [user, setUser] = useState(null);
-    const dispatch = useDispatch();
+export function useProvideUser(): TProviderUser {
+    const [user, setUser] = useState<TUser | null>(null);
 
-    const register = (form) => {
-        return dispatch(registerUser(form)).then((data) => {
-            setCookie('access_token', data.accessToken.split("Bearer ")[1]);
-            setCookie('refresh_token', data.refreshToken);
+    const register = (form: TFormRegister) => {
+        return registerUser(form).then((data) => {
+            setCookie('access_token', data.accessToken ? data.accessToken.split("Bearer ")[1] : null);
+            setCookie('refresh_token', data.refreshToken || null);
             setUser({ ...data.user});
         })
     }
 
-    const login = (form) => {
-        return dispatch(loginUser(form)).then((data) => {
-            setCookie('access_token', data.accessToken.split("Bearer ")[1]);
-            setCookie('refresh_token', data.refreshToken);
+    const login = (form: TFormLogin) => {
+        return loginUser(form).then((data) => {
+            setCookie('access_token', data.accessToken ? data.accessToken.split("Bearer ")[1] : null);
+            setCookie('refresh_token', data.refreshToken || null);
             setUser({ ...data.user});
         })
     }
 
     const logout = () => {
-        return dispatch(logoutUser()).then(() => {
+        return logoutUser().then(() => {
             deleteCookie('access_token');
             deleteCookie('refresh_token');
             setUser(null);
@@ -47,7 +51,7 @@ export function useProvideUser() {
 
     const loadUserInfo = () => {
         if(getCookie('access_token')){
-            return dispatch(infoUser()).then(data => {
+            return infoUser().then(data => {
                 setUser({ ...data.user});
             }).catch(e => {
                 return updateToken()
@@ -56,16 +60,16 @@ export function useProvideUser() {
         return Promise.reject();
     }
 
-    const saveUserInfo = (email, password, name) => {
-        return dispatch(saveInfoUser(email, password, name)).then(data => {
+    const saveUserInfo = (form: TUserSave) => {
+        return saveInfoUser(form).then(data => {
             setUser({ ...data.user});
         })
     }
 
     const updateToken = () => {
-        return dispatch(updateTokenUser()).then(data => {
-            setCookie('access_token', data.accessToken.split("Bearer ")[1]);
-            setCookie('refresh_token', data.refreshToken);
+        return updateTokenUser().then(data => {
+            setCookie('access_token', data.accessToken ? data.accessToken.split("Bearer ")[1] : null);
+            setCookie('refresh_token', data.refreshToken || null);
         }).catch(() => {
             logout()
         })

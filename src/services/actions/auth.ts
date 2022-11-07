@@ -1,6 +1,7 @@
 import {requestLogin, requestLogout, requestRegister, requestSaveUser, requestToken, requestUser} from "../api";
+import {TBackendUser, TFormLogin, TFormRegister, TUserSave} from "../../utils/types";
 
-export const loginUser = (form) => () => {
+export const loginUser = (form: TFormLogin): Promise<TBackendUser> =>{
     return requestLogin(form.email, form.password).then((res) => {
         if (res && res.success) {
             return Promise.resolve(res);
@@ -10,10 +11,9 @@ export const loginUser = (form) => () => {
     }).catch((err) => {
         console.log(err)
     })
-
 }
 
-export const registerUser = (form) => () => {
+export const registerUser = (form: TFormRegister): Promise<TBackendUser> => {
     return requestRegister(form.email, form.password, form.name).then((res) => {
         if (res && res.success) {
             return Promise.resolve(res);
@@ -25,7 +25,7 @@ export const registerUser = (form) => () => {
     })
 }
 
-export const logoutUser = () => () => {
+export const logoutUser = (): Promise<unknown> => {
     return requestLogout().then((res) => {
         if (res && res.success) {
             return Promise.resolve();
@@ -37,7 +37,7 @@ export const logoutUser = () => () => {
     })
 }
 
-export const infoUser = () => () => {
+export const infoUser = (): Promise<TBackendUser> => {
     return requestUser().then((res) => {
         if (res && res.success) {
             return Promise.resolve(res);
@@ -49,8 +49,8 @@ export const infoUser = () => () => {
     })
 }
 
-export const saveInfoUser = (email, password, name) => () => {
-    return requestSaveUser(email, password, name).then((res) => {
+export const saveInfoUser = (form: TUserSave): Promise<TBackendUser> => {
+    return requestSaveUser(form).then((res) => {
         if (res && res.success) {
             return Promise.resolve(res);
         } else {
@@ -61,7 +61,7 @@ export const saveInfoUser = (email, password, name) => () => {
     })
 }
 
-export const updateTokenUser = () => () => {
+export const updateTokenUser = (): Promise<TBackendUser> => {
     return requestToken().then((res) => {
         if (res && res.success) {
             return Promise.resolve(res);

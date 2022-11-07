@@ -1,8 +1,12 @@
 import React from "react";
 import styles from './ingredient-details.module.css'
-import {ingredientType} from "../../utils/types";
+import {TIngredient} from "../../utils/types";
 
-export function IngredientDetails({ingredient}) {
+interface IIngredientDetails {
+    ingredient: TIngredient
+}
+
+export function IngredientDetails({ingredient}: IIngredientDetails) {
 
     return (
         <div className={styles.content}>
@@ -31,8 +35,4 @@ export function IngredientDetails({ingredient}) {
             </div>
         </div>
     )
-}
-
-IngredientDetails.propTypes = {
-    ingredient: ingredientType.isRequired,
 }

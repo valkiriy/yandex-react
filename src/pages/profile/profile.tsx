@@ -1,30 +1,40 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {useUser} from "../../services/user";
 
 import styles from "./profile.module.css";
 import {Input, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import {TUserSave} from "../../utils/types";
 
 function Profile(){
 
     const user = useUser();
     const [isChangeForm, setIsChangeForm] = useState(false)
 
-    const [form, setValue] = useState({ name: user.user.name, email: user.user.email, password: '' });
-    const onChange = e => {
+    const [form, setValue] = useState<TUserSave>({
+        name: user && user.user ? user.user.name : "",
+        email: user && user.user ? user.user.email : "",
+        password: ''
+    });
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setIsChangeForm(true);
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
-    const save = (e) => {
+    const save = (e: FormEvent) => {
         e.preventDefault();
         setIsChangeForm(false);
-        user.saveUserInfo(form.email, form.password, form.name)
+        user && user.saveUserInfo(form)
     };
 
     const cancel = () => {
         console.log('cancel')
         setIsChangeForm(false);
-        setValue({name: user.user.name, email: user.user.email, password: ''})
+        setValue({
+            name: user && user.user ? user.user.name : "",
+            email: user && user.user ? user.user.email : "",
+            password: ''
+        })
     };
 
     return (

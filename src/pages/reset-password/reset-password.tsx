@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState} from 'react';
 import styles from "../login/login.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory, useLocation} from "react-router-dom";
@@ -11,11 +11,11 @@ import {useUser} from "../../services/user";
 function ResetPassword(){
     const user = useUser();
 
-    const {state} = useLocation()
+    const {state} = useLocation<{code_send: boolean}>()
 
     const history = useHistory();
     const [form, setValue] = useState({ password: '', code: '' });
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
@@ -34,7 +34,7 @@ function ResetPassword(){
         [form, history]
     );
 
-    if (user.user) {
+    if (user && user.user) {
         history.replace('/')
     }
 

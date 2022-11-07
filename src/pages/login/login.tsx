@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
 
 import styles from "./login.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -10,27 +10,29 @@ function Login(){
 
     const user = useUser();
     const history = useHistory();
-    const location = useLocation();
+    const location = useLocation<{f: string | Location}>();
 
     const [form, setValue] = useState({ email: '', password: '' });
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
     const login = useCallback(
         e => {
             e.preventDefault();
-            user.login(form).then(() => {
-                history.replace(location.state.f ? location.state.f : '/')
-            }).catch((e) => {
-                alert('error login');
-            })
+            if(user){
+                user.login(form).then(() => {
+                    history.replace(location.state.f ? location.state.f : '/')
+                }).catch(() => {
+                    alert('error login');
+                })
+            }
         },
         [form, user, history, location]
     );
 
     useEffect(() => {
-        if (user.user) {
+        if (user && user.user) {
             history.replace('/')
         }
     }, [user])

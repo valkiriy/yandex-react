@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState} from 'react';
 
 import styles from "./forgot-password.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -11,7 +11,7 @@ function ForgotPassword(){
 
     const history = useHistory();
     const [form, setValue] = useState({ email: '' });
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
@@ -22,7 +22,6 @@ function ForgotPassword(){
                 if (res && res.success) {
                     history.replace({ pathname: '/reset-password', state: {code_send: true} });
                 }else{
-                    console.log(res)
                     alert('Что-то пошло не так');
                 }
             })
@@ -31,7 +30,7 @@ function ForgotPassword(){
     );
 
 
-    if (user.user) {
+    if (user && user.user) {
         history.replace('/')
     }
 

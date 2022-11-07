@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState} from 'react';
 
 import styles from "./register.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -11,14 +11,14 @@ function Register(){
 
     const history = useHistory();
     const [form, setValue] = useState({ name: '', email: '', password: '' });
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
     const register = useCallback(
         e => {
             e.preventDefault();
-            user.register(form).then(() => {
+            user && user.register(form).then(() => {
                 history.replace('/')
             }).catch(() => {
                 alert('error register');
@@ -27,7 +27,9 @@ function Register(){
         [user, form, history]
     );
 
+    // @ts-ignore
     if (user.user) {
+        // @ts-ignore
         history.replace(history.location.state.r || '/')
     }
 

@@ -1,4 +1,5 @@
 import {getCookie, request} from "./utils";
+import {TUserSave} from "../utils/types";
 
 const API_URL = "https://norma.nomoreparties.space/api"
 
@@ -6,7 +7,7 @@ export function requestGetIngredients() {
     return request(`${API_URL}/ingredients`, {method: 'GET'})
 }
 
-export function requestMakeOrder(ingredients) {
+export function requestMakeOrder(ingredients: string[]) {
     return request(`${API_URL}/orders`, {
         method: 'POST',
         headers: {
@@ -16,7 +17,7 @@ export function requestMakeOrder(ingredients) {
     })
 }
 
-export function requestResetPassword(email){
+export function requestResetPassword(email: string){
     return request(`${API_URL}/password-reset`, {
         method: 'POST',
         headers: {
@@ -26,7 +27,7 @@ export function requestResetPassword(email){
     })
 }
 
-export function requestSavePassword(password, token){
+export function requestSavePassword(password: string, token: string){
     return request(`${API_URL}/password-reset/reset`, {
         method: 'POST',
         headers: {
@@ -36,7 +37,7 @@ export function requestSavePassword(password, token){
     })
 }
 
-export function requestRegister(email, password, name){
+export function requestRegister(email: string, password: string, name: string){
     return request(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: {
@@ -46,7 +47,7 @@ export function requestRegister(email, password, name){
     })
 }
 
-export function requestLogin(email, password, name){
+export function requestLogin(email: string, password: string){
     return request(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
@@ -66,14 +67,14 @@ export function requestUser(){
     })
 }
 
-export function requestSaveUser(email, password, name){
+export function requestSaveUser(form: TUserSave){
     return request(`${API_URL}/auth/user`, {
         method: 'PATCH',
         headers: {
             "Content-Type": "application/json",
             Authorization: 'Bearer ' + getCookie('access_token')
         },
-        body: JSON.stringify({email, password, name})
+        body: JSON.stringify(form)
     })
 }
 
