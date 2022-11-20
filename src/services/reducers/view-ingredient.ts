@@ -1,11 +1,18 @@
-import {SHOW_MODAL, HIDE_MODAL, SET_INGREDIENT} from "../actions/view-ingridient"
+import {TIngredient} from "../../utils/types";
+import {TViewIngredientActions} from "../actions/view-ingridient";
+import {HIDE_MODAL, SET_INGREDIENT, SHOW_MODAL} from "../constants/view-ingridient";
 
-const initialState = {
+type TInitialState = {
+    showModal: boolean,
+    ingredient: TIngredient | {}
+}
+
+const initialState:TInitialState = {
     showModal: false,
     ingredient: {}
 }
 
-export const viewIngredientReducer = (state = initialState, action) => {
+export const viewIngredientReducer = (state = initialState, action: TViewIngredientActions): TInitialState => {
     switch (action.type) {
         case SHOW_MODAL: {
             return {
@@ -20,7 +27,6 @@ export const viewIngredientReducer = (state = initialState, action) => {
             };
         }
         case SET_INGREDIENT: {
-            console.log(action)
             return {
                 ...state,
                 ingredient: action.ingredient,

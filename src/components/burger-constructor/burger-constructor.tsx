@@ -5,27 +5,23 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import {ConstructorList} from "./constructor-list";
 import {Modal} from "../modal/modal";
 import {OrderDetails} from "../order-details/order-details";
-import {useDispatch, useSelector} from "react-redux";
-import {HIDE_MODAL_INFO_ORDER, sendOrder} from "../../services/actions/order";
+import {sendOrder} from "../../services/actions/order";
 import {useDrop} from "react-dnd";
-import {AddIngredientBurger, SET_BUN} from "../../services/actions/burger";
+import {SET_BUN} from "../../services/constants/burger";
 import {useUser} from "../../services/user";
 import {useHistory} from "react-router-dom";
-import {TIngredient, TypeIngredient} from "../../utils/types";
+import {TIngredient, TypeIngredient, useDispatch, useSelector} from "../../utils/types";
+import {AddIngredientBurger} from "../../services/actions/burger";
+import {HIDE_MODAL_INFO_ORDER} from "../../services/constants/order";
 
 export function BurgerConstructor(){
 
     let user = useUser();
     const history = useHistory();
 
-    const {bun, ingredients} = useSelector(
-        //@ts-ignore
-        (state) => state.burger
-    )
+    const {bun, ingredients} = useSelector((state) => state.burger)
 
     const {show_info} = useSelector(
-        // в слаке сказали пока сделать так
-        //@ts-ignore
         (state) => state.order
     )
 

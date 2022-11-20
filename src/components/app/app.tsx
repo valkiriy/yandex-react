@@ -2,6 +2,7 @@ import React from 'react';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import {Route, Switch, useLocation} from 'react-router-dom';
 
+
 import {ProvideUser} from '../../services/user'
 
 import {AppHeader} from "../app-header/app-header";
@@ -12,10 +13,21 @@ import LoginPage from "../../pages/login/login"
 import ProfileIndex from "../../pages/profile/index"
 import RegisterPage from "../../pages/register/register"
 import ResetPasswordPage from "../../pages/reset-password/reset-password"
+
+import FeedPage from "../../pages/feed/index"
+
 import {ProtectedRoute} from "../protected-route";
 import ModalIngredient from "../ingredient-details/modal";
+import {getIngredients} from "../../services/actions/ingridients";
+import {useDispatch} from "../../utils/types";
 
 function App() {
+
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        dispatch(getIngredients())
+    }, [])
 
     const location = useLocation<{ background: boolean}>();
     const background = (location.state as any)?.background;
@@ -26,6 +38,9 @@ function App() {
             <Switch location={background || location}>
                 <Route path="/register" exact={true}>
                     <RegisterPage />
+                </Route>
+                <Route path="/feed">
+                    <FeedPage />
                 </Route>
                 <Route path="/login" exact={true}>
                     <LoginPage />

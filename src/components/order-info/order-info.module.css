@@ -1,0 +1,37 @@
+
+.img_preview{
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    background-position: center center;
+    background-size: cover;
+    border: 2px solid #801AB2;
+    background-color: #1C1C21;
+}
+
+.item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item_info{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.list_items{
+    composes: pr-4 from global;
+    max-height: calc(200px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}

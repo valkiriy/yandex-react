@@ -1,19 +1,29 @@
+import {TOrderActions} from "../actions/order";
 import {
     HIDE_MODAL_INFO_ORDER,
     SEND_ORDER_FAILED,
     SEND_ORDER_REQUEST,
     SEND_ORDER_SUCCESS,
     SHOW_MODAL_INFO_ORDER
-} from "../actions/order"
+} from "../constants/order";
 
-const initialState = {
+import {TOrder} from "../../utils/types";
+
+type TInitialState = {
+    request: boolean;
+    failed: boolean;
+    show_info: boolean;
+    info: TOrder | null;
+}
+
+const initialState: TInitialState = {
     request: false,
     failed: false,
     show_info: false,
-    info: {}
+    info: null
 }
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: TOrderActions): TInitialState => {
     switch (action.type) {
         case SHOW_MODAL_INFO_ORDER: {
             return {
@@ -45,7 +55,7 @@ export const orderReducer = (state = initialState, action) => {
         case SEND_ORDER_FAILED: {
             return {
                 ...state,
-                info: {},
+                info: null,
                 request: false,
                 failed: true,
             };
@@ -55,32 +65,3 @@ export const orderReducer = (state = initialState, action) => {
     }
 }
 
-
-// export const ingredientsReducer = (state = initialState, action) => {
-//     switch (action.type) {
-//         case GET_INGREDIENTS_REQUEST: {
-//             return {
-//                 ...state,
-//                 request: true,
-//                 failed: false,
-//             };
-//         }
-//         case GET_INGREDIENTS_SUCCESS: {
-//             return {
-//                 ...state,
-//                 items: action.items,
-//                 request: false,
-//                 failed: false,
-//             };
-//         }
-//         case GET_INGREDIENTS_FAILED: {
-//             return {
-//                 ...state,
-//                 request: false,
-//                 failed: true,
-//             };
-//         }
-//         default:
-//             return state;
-//     }
-// }

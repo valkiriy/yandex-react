@@ -11,7 +11,8 @@ export function requestMakeOrder(ingredients: string[]) {
     return request(`${API_URL}/orders`, {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: 'Bearer ' + getCookie('access_token')
         },
         body: JSON.stringify({ingredients: ingredients})
     })

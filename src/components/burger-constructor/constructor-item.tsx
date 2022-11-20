@@ -3,9 +3,8 @@ import React, {useRef} from "react";
 import styles from './burger-constructor.module.css'
 
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {TIngredient, TypeIngredient} from "../../utils/types";
-import {useDispatch} from "react-redux";
-import {REMOVE_INGREDIENT, SET_INGREDIENT_INDEX} from "../../services/actions/burger";
+import {TIngredient, TypeIngredient, useDispatch} from "../../utils/types";
+import {REMOVE_INGREDIENT, SET_INGREDIENT_INDEX} from "../../services/constants/burger";
 import {useDrag, useDrop, XYCoord} from "react-dnd";
 
 interface IConstructorItem {
