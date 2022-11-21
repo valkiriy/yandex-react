@@ -1,0 +1,43 @@
+.main{
+    display: grid;
+    grid-gap: 40px;
+    gap: 40px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.container{
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.grid_stats{
+    display: grid;
+    gap: 36px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.list_wrap{
+    composes: pr-4 from global;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.info_order {
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 640px;
+}
+
+.link{
+    color: white;
+    text-decoration: none;
+}

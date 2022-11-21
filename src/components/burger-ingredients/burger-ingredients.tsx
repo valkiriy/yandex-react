@@ -3,12 +3,10 @@ import React, {useEffect, useRef} from "react";
 import {IngredientsList} from "./ingredients-list";
 import styles from './burger-ingredients.module.css'
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components"
-import {useSelector} from "react-redux";
-import {TIngredient, TypeIngredient} from "../../utils/types";
+import {TIngredient, TypeIngredient, useSelector} from "../../utils/types";
 
 export function BurgerIngredients(){
     const {items: ingredients} = useSelector(
-        // @ts-ignore
         (state) => state.ingredients
     )
 

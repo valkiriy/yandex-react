@@ -2,8 +2,7 @@ import React from "react";
 import styles from './burger-ingredients.module.css'
 
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {TIngredient} from "../../utils/types";
-import {useSelector} from "react-redux";
+import {TIngredient, useSelector} from "../../utils/types";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
 
@@ -15,13 +14,12 @@ export function IngredientsItem({item} : IIngredientsItem){
 
     let location = useLocation();
     const {bun, ingredients} = useSelector(
-        // @ts-ignore
         (state) => state.burger
     )
 
     const count = [bun, bun, ...ingredients]
         .filter(x => x)
-        .filter(ingredient => ingredient._id === item._id).length
+        .filter(ingredient => ingredient && ingredient._id === item._id).length
 
     const [, dragRef] = useDrag({
         type: "ingredient",

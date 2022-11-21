@@ -27,8 +27,7 @@ function Register(){
         [user, form, history]
     );
 
-    // @ts-ignore
-    if (user.user) {
+    if (user?.user) {
         // @ts-ignore
         history.replace(history.location.state.r || '/')
     }

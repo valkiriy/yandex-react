@@ -1,0 +1,42 @@
+.item {
+    display: grid;
+    padding: 24px;
+    gap: 24px;
+    background: #1C1C21;
+    border-radius: 40px;
+}
+
+.info{
+    display: grid;
+    grid-gap: 40px;
+    gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+}
+
+.info_price{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.right{
+    text-align: right;
+}
+
+.img_preview{
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    background-position: center center;
+    background-size: cover;
+    border: 2px solid #801AB2;
+    background-color: #1C1C21;
+    margin-left: -20px;
+}
+
+.list_ingr{
+    display: flex;
+    position: relative;
+    padding-left: 20px;
+}

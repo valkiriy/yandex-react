@@ -14,7 +14,7 @@ export function AppHeader(){
                         <BurgerIcon type="primary" />
                         <span className="pl-2">Конструктор</span>
                     </NavLink>
-                    <NavLink to={{pathname: `/sdfsdfds`}} className={styles.link} activeClassName={styles.active}>
+                    <NavLink to={{pathname: `/feed`}} className={styles.link} activeClassName={styles.active}>
                         <ListIcon type="primary" />
                         <span className="pl-2">Лента заказов</span>
                     </NavLink>

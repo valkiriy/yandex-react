@@ -1,8 +1,7 @@
 import React, {useContext, createContext, useState, FC} from 'react';
 import {deleteCookie, getCookie, setCookie} from "./utils";
 import {infoUser, loginUser, logoutUser, registerUser, saveInfoUser, updateTokenUser} from "./actions/auth";
-import {useDispatch} from "react-redux";
-import {TBackendUser, TFormLogin, TFormRegister, TProviderUser, TUser, TUserSave} from "../utils/types";
+import {TFormLogin, TFormRegister, TProviderUser, TUser, TUserSave} from "../utils/types";
 
 // создаем контекст авторизации, значения по умолчанию вычислить изначально не возможно = undefined
 const UserContext = createContext<TProviderUser | null>(null);

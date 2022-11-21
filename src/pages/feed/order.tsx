@@ -1,15 +1,14 @@
 import React from 'react';
-import {useParams} from "react-router-dom";
+import styles from "./feed.module.css";
 import {TOrder} from "../../utils/types";
+import {useParams} from "react-router-dom";
 import {OrderInfo} from "../../components/order-info/order-info";
 
-import styles from "./profile.module.css";
-
-interface IProfileOrder {
+interface IOrder {
     listOrders: TOrder[]
 }
 
-function ProfileOrder({listOrders}: IProfileOrder){
+function Order({listOrders}: IOrder){
     const {id}: {id: string} = useParams()
     const order = listOrders.find((x: TOrder) => x._id === id)
     return (
@@ -19,4 +18,4 @@ function ProfileOrder({listOrders}: IProfileOrder){
     )
 }
 
-export default ProfileOrder;
+export default Order;

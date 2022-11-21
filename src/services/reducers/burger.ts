@@ -1,12 +1,19 @@
-import {ADD_INGREDIENT, REMOVE_INGREDIENT, SET_BUN, SET_INGREDIENT_INDEX} from "../actions/burger"
-import {uuidv4} from "../utils";
+import {ADD_INGREDIENT, REMOVE_INGREDIENT, SET_BUN, SET_INGREDIENT_INDEX} from "../constants/burger"
 
-const initialState = {
+import {TIngredient} from "../../utils/types";
+import type {TBurgerActions} from "../actions/burger"
+
+type TBurgerState = {
+    bun: TIngredient | null;
+    ingredients: TIngredient[];
+}
+
+const initialState: TBurgerState = {
     bun: null,
     ingredients: [],
 }
 
-export const burgerReducer = (state = initialState, action) => {
+export const burgerReducer = (state = initialState, action: TBurgerActions):TBurgerState  => {
     switch (action.type) {
         case SET_BUN: {
             return {

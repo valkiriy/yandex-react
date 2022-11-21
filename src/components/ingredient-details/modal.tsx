@@ -1,10 +1,9 @@
 import React, {useEffect} from "react";
 import {Modal} from "../modal/modal";
 import {IngredientDetails} from "./ingredient-details";
-import {useDispatch, useSelector} from "react-redux";
 import {useHistory, useParams} from "react-router-dom";
 import {getIngredients} from "../../services/actions/ingridients";
-import {TIngredient} from "../../utils/types";
+import {TIngredient, useDispatch, useSelector} from "../../utils/types";
 
 function ModalIngredient(){
 
@@ -17,7 +16,6 @@ function ModalIngredient(){
     }, [])
 
     const {items} = useSelector(
-        // @ts-ignore
         (state) => state.ingredients
     )
 

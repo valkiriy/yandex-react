@@ -5,7 +5,7 @@ import {TIngredient} from "../../utils/types";
 
 interface IConstructorList {
     items: TIngredient[],
-    bun: TIngredient
+    bun: TIngredient | null
 }
 
 export function ConstructorList({items, bun}: IConstructorList){

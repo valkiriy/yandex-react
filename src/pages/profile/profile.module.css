@@ -40,3 +40,25 @@
 .field{
     display: flex;
 }
+
+
+.list_wrap{
+    composes: pr-4 from global;
+    max-height: calc(100vh - 250px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.link_clear{
+    color: white;
+    text-decoration: none;
+}
+
+
+
+.info_order {
+    margin: 0 auto;
+    width: 640px;
+}
