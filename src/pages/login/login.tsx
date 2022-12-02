@@ -44,6 +44,7 @@ function Login(){
                     <div className={styles.title}>Вход</div>
                     <div className={`pt-6 ${styles.field}`}>
                         <Input
+                            data-class={"input-email"}
                             type={'email'}
                             value={form.email}
                             onChange={onChange}
@@ -53,13 +54,15 @@ function Login(){
                     </div>
                     <div className={`pt-6 ${styles.field}`}>
                         <PasswordInput
+                            data-class={"input-password"}
                             value={form.password}
                             onChange={onChange}
                             name={'password'}
                         />
                     </div>
                     <div className={`pt-6`}>
-                        <Button htmlType={"submit"} type="primary" size="medium">
+                        <Button
+                            data-class={"btn-login"} htmlType={"submit"} type="primary" size="medium">
                             Войти
                         </Button>
                     </div>

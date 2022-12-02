@@ -30,7 +30,7 @@ export const Modal: FC<IModal> = ({ children, onClose }) => {
         <>
             <div className={styles.modal} onKeyDown={onClose} >
                 <div className={styles.content} tabIndex={0}>
-                    <div className={styles.close} onClick={onClose}><CloseIcon type="primary" /></div>
+                    <div className={styles.close} data-class='modal-close-btn' onClick={onClose}><CloseIcon type="primary" /></div>
                     {children}
                 </div>
                 <ModalOverlay onClose={onClose} />

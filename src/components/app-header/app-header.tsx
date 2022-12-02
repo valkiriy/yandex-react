@@ -21,7 +21,7 @@ export function AppHeader(){
                 </div>
                 <NavLink to={{pathname: `/`}} className={`${styles.menuItem}`}><Logo /></NavLink>
                 <div className={`${styles.menuRight} ${styles.menuItem}`}>
-                    <NavLink to={{pathname: `/profile`}} className={styles.link} activeClassName={styles.active}>
+                    <NavLink data-class={"go-to-login"} to={{pathname: `/profile`}} className={styles.link} activeClassName={styles.active}>
                         <ProfileIcon type="primary" />
                         <span className="pl-2">Личный кабинет</span>
                     </NavLink>

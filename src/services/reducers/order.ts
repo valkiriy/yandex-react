@@ -16,7 +16,7 @@ type TInitialState = {
     info: TOrder | null;
 }
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
     request: false,
     failed: false,
     show_info: false,

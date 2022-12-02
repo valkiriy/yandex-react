@@ -1,4 +1,4 @@
-import React from "react";
+import React, {SyntheticEvent} from "react";
 import styles from './burger-constructor.module.css'
 
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components"
@@ -26,7 +26,8 @@ export function BurgerConstructor(){
     )
 
     const dispatch = useDispatch()
-    const sendOrderHandler = () => {
+    const sendOrderHandler = (e: SyntheticEvent) => {
+        e.preventDefault();
         if(user && user.user){
             dispatch(sendOrder([bun, ...ingredients, bun]))
         }else{
@@ -57,7 +58,7 @@ export function BurgerConstructor(){
                     {ingredients.reduce((amount: number, item: TIngredient)=> {return amount + item.price }, 0) + (bun ? bun.price * 2 : 0)} <CurrencyIcon type={"primary"} />
                 </span>
                     <span>
-                    <Button htmlType={"button"} type="primary" onClick={() => sendOrderHandler()} size="large">
+                    <Button data-class={'order-btn'} htmlType={"button"} type="primary" onClick={(e: SyntheticEvent) => sendOrderHandler(e)} size="large">
                       Оформить заказ
                     </Button>
                 </span>
