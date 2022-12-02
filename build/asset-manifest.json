@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/yandex-react/static/css/main.64a07c5d.chunk.css",
+    "main.js": "/yandex-react/static/js/main.a56b13ee.chunk.js",
+    "main.js.map": "/yandex-react/static/js/main.a56b13ee.chunk.js.map",
+    "runtime-main.js": "/yandex-react/static/js/runtime-main.013c1b3d.js",
+    "runtime-main.js.map": "/yandex-react/static/js/runtime-main.013c1b3d.js.map",
+    "static/css/2.638d9b50.chunk.css": "/yandex-react/static/css/2.638d9b50.chunk.css",
+    "static/js/2.36f8d698.chunk.js": "/yandex-react/static/js/2.36f8d698.chunk.js",
+    "static/js/2.36f8d698.chunk.js.map": "/yandex-react/static/js/2.36f8d698.chunk.js.map",
+    "static/js/3.9fb86662.chunk.js": "/yandex-react/static/js/3.9fb86662.chunk.js",
+    "static/js/3.9fb86662.chunk.js.map": "/yandex-react/static/js/3.9fb86662.chunk.js.map",
+    "index.html": "/yandex-react/index.html",
+    "static/css/2.638d9b50.chunk.css.map": "/yandex-react/static/css/2.638d9b50.chunk.css.map",
+    "static/css/main.64a07c5d.chunk.css.map": "/yandex-react/static/css/main.64a07c5d.chunk.css.map",
+    "static/js/2.36f8d698.chunk.js.LICENSE.txt": "/yandex-react/static/js/2.36f8d698.chunk.js.LICENSE.txt",
+    "static/media/fonts.css": "/yandex-react/static/media/iceland.77ad7fc2.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.013c1b3d.js",
+    "static/css/2.638d9b50.chunk.css",
+    "static/js/2.36f8d698.chunk.js",
+    "static/css/main.64a07c5d.chunk.css",
+    "static/js/main.a56b13ee.chunk.js"
+  ]
+}
