@@ -36,6 +36,7 @@ export function IngredientsItem({item} : IIngredientsItem){
                         background: location,
                     }
                 }}
+                data-class={`ingredient-${item._id}`}
                 className={styles.link}
             >
                 {count > 0 && (<Counter count={count} size="default" />) }

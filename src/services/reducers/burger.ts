@@ -8,7 +8,7 @@ type TBurgerState = {
     ingredients: TIngredient[];
 }
 
-const initialState: TBurgerState = {
+export const initialState: TBurgerState = {
     bun: null,
     ingredients: [],
 }
