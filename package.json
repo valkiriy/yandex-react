@@ -1,7 +1,7 @@
 {
   "name": "react-burger",
   "version": "0.1.0",
-  "homepage": "https://valkiriy.github.io/yandex-react",
+  "homepage": "./",
   "private": false,
   "dependencies": {
     "@types/react-router": "^5.1.18",
